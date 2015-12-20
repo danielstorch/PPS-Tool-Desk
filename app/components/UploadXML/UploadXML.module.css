@@ -1,0 +1,11 @@
+.dropzone {
+	margin-top: 50px;
+    width: 100%;
+    border: 2px dashed #bbb;
+    border-color: #00bcd4;
+    height: 300px;
+    line-height: 300px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #E1E1E1;
+}

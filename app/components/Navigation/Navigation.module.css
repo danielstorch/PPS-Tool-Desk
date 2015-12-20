@@ -1,0 +1,114 @@
+
+/*
+.AppBar-icon-close {
+    content: url(../../img/ic_close_white_32dp_1x.png);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.AppBar-icon-open{
+    content: url(../../img/ic_menu_white_48dp_1x.png);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.MenuItem-icon-home{
+    content: url(../../img/ic_home_black_24dp_1x.png);
+}
+
+.MenuItem-icon-kapazitaetsplanung{
+    content: url(../../img/ic_watch_later_black_24dp_1x.png);
+}
+
+.MenuItem-icon-download{
+    content: url(../../img/ic_file_download_black_24dp_1x.png);
+}
+
+.MenuItem-icon-upload{
+    content: url(../../img/ic_file_upload_black_24dp_1x.png);
+}
+
+.MenuItem-icon-settings{
+    content: url(../../img/ic_settings_black_24dp_1x.png);
+}
+
+.MenuItem-icon-auftragsplanung{
+    content: url(../../img/ic_directions_bike_black_24dp_1x.png);
+}
+
+.MenuItem-icon-kaufteildisposition{
+    content: url(../../img/ic_shopping_cart_black_24dp_1x.png);
+}
+
+.MenuItem-icon-anleitung{
+    content: url(../../img/ic_import_contacts_black_24dp_1x.png);
+}
+
+.MenuItem-icon-tips{
+    content: url(../../img/ic_announcement_black_24dp_1x.png);
+}
+
+.MenuItem-icon-metriken{
+    content: url(../../img/ic_timeline_black_24dp_1x.png);
+}
+*/
+.currentPage {
+	color: $text-color;
+}
+
+.NavigationÖink {
+  margin: 0.5em 1em;
+  color: $text-color;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    border-bottom: 3px solid $brand-color;
+    color: $text-color;
+  }
+}
+
+.NavigationSubLink {
+  margin: 0.5em 4em;
+  color: $text-color;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    border-bottom: 3px solid $brand-color;
+    color: $text-color;
+  }
+}
+
+.NavigationTitle {
+  padding: 0.5em 1em;
+  color: $text-color;
+  text-decoration: none;
+}
+
+.NavigationDivider {
+    box-sizing: border-box;
+    border-top: solid 1px #e0e0e0;
+    padding-top: 8px;
+    margin-top: 8px;
+    overflow: hidden;
+}
+
+
+
+
+
+
+
+
+
+
+

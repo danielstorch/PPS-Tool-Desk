@@ -1,0 +1,5 @@
+{
+  "private": true,
+  "name": "Kapazitaetsplanung",
+  "main": "./Kapazitaetsplanung.js"
+}

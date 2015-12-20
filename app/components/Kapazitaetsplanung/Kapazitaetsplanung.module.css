@@ -1,0 +1,7 @@
+
+.TableRow-bottom-border{
+
+  border-bottom: 10px solid $brand-color;
+  color: $text-color;
+
+}
