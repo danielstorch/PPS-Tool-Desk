@@ -20,7 +20,6 @@ export default (
     <Route path="/download" component={DownloadPage} />
     <Route path="/kapazitaetsplanung" component={KapazitaetsplanungPage} />
     <Route path="/kaufteildisposition" component={KaufteildispositionPage} />
-    <Route path="/upload" component={UploadPage} />
     <Route path="/auftragsplanung/damen" component={DamenPage} />
     <Route path="/auftragsplanung/herren" component={HerrenPage} />
     <Route path="/auftragsplanung/kinder" component={KinderPage} />

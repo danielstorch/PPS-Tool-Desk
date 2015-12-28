@@ -115,6 +115,8 @@
     "font-awesome": "^4.4.0",
     "history": "~1.13.0",
     "react": "^0.14.2",
+    "react-dnd": "^2.0.2",
+    "react-dnd-html5-backend": "^2.0.2",
     "react-dom": "^0.14.2",
     "react-dropzone": "^3.3.0",
     "react-redux": "^4.0.0",

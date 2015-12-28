@@ -3,6 +3,7 @@ import './Gesamt.module.css';
 import mui from 'material-ui';
 import { connect } from 'react-redux';
 import { setAuftragsplanungGesamtInputXML, resetAuftragsplanungGesamtInputXML } from '../../actions/PPSToolActions';
+import { Link } from 'react-router';
 
 var TableBody = mui.TableBody
   , TableHeader = mui.TableHeader
@@ -27,6 +28,8 @@ class Gesamt extends React.Component {
     this._updateLocalStorage = this._updateLocalStorage.bind(this)
 
     this.state = {
+      currentPeriode:"",
+
       modal: true,
       openDialogStandardActions: false,
       dialogTitle: "Dialog",
@@ -89,37 +92,48 @@ class Gesamt extends React.Component {
   }
 
   componentWillMount(){
-    this._updateVariables();
+    this._updateVariables(true)
   }
 
-  shouldComponentUpdate(){
-    return true;
-  }
+  componentDidUpdate(){
 
-  componentWillReceiveProps(){
-    this._updateVariables();
+    this._updateVariables(false);
 
   }
 
 
-  _updateVariables(){
+  _updateVariables(initial){
     var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
     var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
 
-    console.log(currentInputXML)
-    if(currentInputXML && currentInputXML.inputDataObject.auftragsplanungGesamt){
-      this.state.P1.ProduktionLager = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
-      this.state.P1.Prognose = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.Prognose
-      this.state.P2.ProduktionLager = currentInputXML.inputDataObject.auftragsplanungGesamt.P2.ProduktionLager
-      this.state.P2.Prognose = currentInputXML.inputDataObject.auftragsplanungGesamt.P2.Prognose
-      this.state.P3.ProduktionLager = currentInputXML.inputDataObject.auftragsplanungGesamt.P3.ProduktionLager
-      this.state.P3.Prognose = currentInputXML.inputDataObject.auftragsplanungGesamt.P3.Prognose
+    if(initial == true || this.state.currentPeriode != activePeriodID){
 
-      this.state.resetButtonDisabled = false
+      if(currentInputXML && currentInputXML.inputDataObject.auftragsplanungGesamt){
+        this.state.P1.ProduktionLager = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+        this.state.P1.Prognose = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.Prognose
+        this.state.P2.ProduktionLager = currentInputXML.inputDataObject.auftragsplanungGesamt.P2.ProduktionLager
+        this.state.P2.Prognose = currentInputXML.inputDataObject.auftragsplanungGesamt.P2.Prognose
+        this.state.P3.ProduktionLager = currentInputXML.inputDataObject.auftragsplanungGesamt.P3.ProduktionLager
+        this.state.P3.Prognose = currentInputXML.inputDataObject.auftragsplanungGesamt.P3.Prognose
 
-    }else{
-      this.state.resetButtonDisabled = true
-      
+        this.state.resetButtonDisabled = false
+
+      }else{
+
+        this.state.P1.ProduktionLager = 0
+        this.state.P1.Prognose = 0
+        this.state.P2.ProduktionLager = 0
+        this.state.P2.Prognose = 0
+        this.state.P3.ProduktionLager = 0
+        this.state.P3.Prognose = 0
+
+        this.state.resetButtonDisabled = true
+
+      }
+
+      this.setState({
+          currentPeriode: activePeriodID
+        });
     }
 
     //Aktueller Lagerstand AUS DER XML
@@ -138,9 +152,9 @@ class Gesamt extends React.Component {
     this.state.P3.ProduktionGesamt = this.state.P3.ProduktionAuftraege + this.state.P3.ProduktionLager;
 
     //Summe
-    this.state.Summe.Prognose = this.state.P1.Prognose + this.state.P2.Prognose + this.state.P3.Prognose 
+    this.state.Summe.Prognose = this.state.P1.Prognose + this.state.P2.Prognose + this.state.P3.Prognose
     this.state.Summe.ProduktionLager = this.state.P1.ProduktionLager + this.state.P2.ProduktionLager + this.state.P3.ProduktionLager
-    this.state.Summe.ProduktionGesamt = this.state.P1.ProduktionGesamt + this.state.P2.ProduktionGesamt + this.state.P3.ProduktionGesamt  
+    this.state.Summe.ProduktionGesamt = this.state.P1.ProduktionGesamt + this.state.P2.ProduktionGesamt + this.state.P3.ProduktionGesamt
     this.state.Summe.ProduktionAuftraege = this.state.P1.ProduktionAuftraege + this.state.P2.ProduktionAuftraege + this.state.P3.ProduktionAuftraege
   }
 
@@ -183,7 +197,7 @@ class Gesamt extends React.Component {
     if(isNumeric){
       errorTextList[articleId] = ''
     }else{
-      errorTextList[articleId] = 'This field must be numeric.'
+      errorTextList[articleId] = this.props.internationalReducer.activeLanguage.strings.NumericError
       value = 0
     }
     periode["ProduktionLager"] = parseInt(value)
@@ -207,6 +221,8 @@ class Gesamt extends React.Component {
         P3: periode
       });
     }
+
+    this._updateVariables(false);
   }
 
   _handlePrognoseChange(e){
@@ -230,7 +246,7 @@ class Gesamt extends React.Component {
     if(isNumeric){
       errorTextList[articleId] = ''
     }else{
-      errorTextList[articleId] = 'This field must be numeric.'
+      errorTextList[articleId] = this.props.internationalReducer.activeLanguage.strings.NumericError
       value = 0
     }
     periode["Prognose"] = parseInt(value)
@@ -255,7 +271,9 @@ class Gesamt extends React.Component {
       });
 
     }
-    
+
+    this._updateVariables(false);
+
   }
 
   _updateLocalStorage(){
@@ -265,7 +283,7 @@ class Gesamt extends React.Component {
           console.log(currentInputXML)
           localStorage.removeItem(currentInputXML.id);
           localStorage.setItem(currentInputXML.id, JSON.stringify(currentInputXML.inputDataObject));
-          
+
         }else{
           alert('LocalStorage is not supported in your browser');
         }
@@ -310,11 +328,16 @@ class Gesamt extends React.Component {
         this.props.dispatch(setAuftragsplanungGesamtInputXML(auftragsplanungGesamt, this.props.ActiveUploadXML.activeUploadXMLData.id));
         this._updateLocalStorage()
         this.refs.snackbar.show();
+
+        this.setState({
+          resetButtonDisabled: false
+        });
+
       }else{
               this.setState({
                 openDialogStandardActions: true,
                 dialogTitle: "Error",
-                dialogText: "Please be sure that every field is a numeric"
+                dialogText: this.props.internationalReducer.activeLanguage.strings.ErrorSaveNumeric
               });
       }
 
@@ -322,13 +345,13 @@ class Gesamt extends React.Component {
               this.setState({
                 openDialogStandardActions: true,
                 dialogTitle: "Error",
-                dialogText: "Please choose a vaild periode"
+                dialogText: this.props.internationalReducer.activeLanguage.strings.ErrorSavePeriod
               });
     }
   }
 
   _handleResetButtonClick(e){
-    
+
     this.props.dispatch(resetAuftragsplanungGesamtInputXML(this.props.ActiveUploadXML.activeUploadXMLData.id))
 
       this.state.P1.ProduktionLager = 0
@@ -339,10 +362,12 @@ class Gesamt extends React.Component {
       this.state.P3.Prognose = 0
 
       this._updateLocalStorage()
+      this.state.resetButtonDisabled = true
+
+      this._updateVariables(false);
   }
 
   render() {
-    this._updateVariables()
 
     let standardActions = [
       { text: 'Ok', onTouchTap: this._onDialogOk.bind(this), ref: 'ok' }
@@ -350,46 +375,61 @@ class Gesamt extends React.Component {
 
     return (
      <div>
-      <h1>Auftragsplanung Gesamt</h1>
+      <h1>{this.props.internationalReducer.activeLanguage.strings.TitelGesamt}</h1>
         <div>
-        <RaisedButton label="Save" primary={true} onTouchTap={this._handleSaveButtonClick}/>
-        <RaisedButton label="Reset" secondary={true} disabled={this.state.resetButtonDisabled} onTouchTap={this._handleResetButtonClick}/>
-             
+
+        <RaisedButton label={this.props.internationalReducer.activeLanguage.strings.Speichern} primary={true} onTouchTap={this._handleSaveButtonClick}/>
+        <RaisedButton label={this.props.internationalReducer.activeLanguage.strings.Reset} secondary={true} disabled={this.state.resetButtonDisabled} onTouchTap={this._handleResetButtonClick}/>
+
+        <div className="navigationButtons">
+          <div className="beforeButtonWrapper" >
+            <Link className="beforeButton" to="/">
+                  {this.props.internationalReducer.activeLanguage.strings.Back}
+            </Link>
+          </div>
+          <div className="nextButtonWrapper">
+          <Link className="nextButton" to="/auftragsplanung/herren">
+                  {this.props.internationalReducer.activeLanguage.strings.Next}
+          </Link>
+          </div>
+        </div>
+
+
               <div>
                   <Table
                     height={this.state.height}
                     fixedHeader={this.state.fixedHeader}
                     selectable={this.state.selectable}
                     >
-                    <TableBody>
-                    <TableHeader >
+                    <TableHeader adjustForCheckbox={this.state.displayRowCheckbox}
+                                 displaySelectAll={this.state.displayRowCheckbox}
+                                 enableSelectAll={this.state.enableSelectAll}>
                       <TableRow selectable={this.state.selectable}>
                         <TableHeaderColumn colSpan="6" tooltip='Gesamt' style={{textAlign: 'center'}}>
-                          Gesamt
+                          {this.props.internationalReducer.activeLanguage.strings.TitelGesamt}
                         </TableHeaderColumn>
                       </TableRow>
                     </TableHeader>
-                    </TableBody>
 
                     <TableBody displayRowCheckbox={this.state.displayRowCheckbox}>
                       <TableRow>
                         <TableRowColumn>
                         </TableRowColumn>
                         <TableRowColumn>
-                          Lagerbestand
+                          {this.props.internationalReducer.activeLanguage.strings.Lagerbestand}
                         </TableRowColumn>
                         <TableRowColumn>
-                          Prognose
+                          {this.props.internationalReducer.activeLanguage.strings.Prognose}
                         </TableRowColumn>
                         <TableRowColumn>
-                          Produktion für Aufträge
+                          {this.props.internationalReducer.activeLanguage.strings.ProduktionFürAufträge}
                         </TableRowColumn>
                         <TableRowColumn>
-                        Produktion für Lager
-                      </TableRowColumn>
+                          {this.props.internationalReducer.activeLanguage.strings.ProduktionFürLager}
+                        </TableRowColumn>
                         <TableRowColumn>
-                        Produktion gesamt
-                      </TableRowColumn>
+                          {this.props.internationalReducer.activeLanguage.strings.ProduktionGesamt}
+                        </TableRowColumn>
                       </TableRow>
 
                       <TableRow>
@@ -398,13 +438,11 @@ class Gesamt extends React.Component {
                         </TableRowColumn>
                         <TableRowColumn>
                           <TextField
-                              hintText="Lagerbestand"
                               value={this.state.P1.Lagerbestand}
                               disabled = {true}/>
                         </TableRowColumn>
                         <TableRowColumn>
                           <TextField
-                              hintText="Prognose"
                               id="P1"
                               errorText={this.state.errorTextPrognose.P1}
                               errorStyle={{color:'orange'}}
@@ -413,13 +451,11 @@ class Gesamt extends React.Component {
                         </TableRowColumn>
                         <TableRowColumn>
                           <TextField
-                              hintText="Produktion für Aufträge"
                               value={this.state.P1.ProduktionAuftraege}
                               disabled = {true}/>
                         </TableRowColumn>
                         <TableRowColumn>
                         <TextField
-                              hintText="Produktion für Lage"
                               id="P1"
                               errorText={this.state.errorTextProduktionLager.P1}
                               errorStyle={{color:'orange'}}
@@ -428,7 +464,6 @@ class Gesamt extends React.Component {
                       </TableRowColumn>
                         <TableRowColumn>
                         <TextField
-                              hintText="Produktion gesamt"
                               value={this.state.P1.ProduktionGesamt}
                               disabled = {true}/>
                       </TableRowColumn>
@@ -440,13 +475,11 @@ class Gesamt extends React.Component {
                         </TableRowColumn>
                         <TableRowColumn>
                           <TextField
-                              hintText="Lagerbestand"
                               value={this.state.P2.Lagerbestand}
                               disabled = {true}/>
                         </TableRowColumn>
                         <TableRowColumn>
                           <TextField
-                              hintText="Prognose"
                               id="P2"
                               errorText={this.state.errorTextPrognose.P2}
                               errorStyle={{color:'orange'}}
@@ -455,13 +488,11 @@ class Gesamt extends React.Component {
                         </TableRowColumn>
                         <TableRowColumn>
                           <TextField
-                              hintText="Produktion für Aufträge"
                               value={this.state.P2.ProduktionAuftraege}
                               disabled = {true}/>
                         </TableRowColumn>
                         <TableRowColumn>
                         <TextField
-                              hintText="Produktion für Lage"
                               id="P2"
                               errorText={this.state.errorTextProduktionLager.P2}
                               errorStyle={{color:'orange'}}
@@ -470,7 +501,6 @@ class Gesamt extends React.Component {
                       </TableRowColumn>
                         <TableRowColumn>
                         <TextField
-                              hintText="Produktion gesamt"
                               value={this.state.P2.ProduktionGesamt}
                               disabled = {true}/>
                       </TableRowColumn>
@@ -482,13 +512,11 @@ class Gesamt extends React.Component {
                         </TableRowColumn>
                         <TableRowColumn>
                           <TextField
-                              hintText="Lagerbestand"
                               value={this.state.P3.Lagerbestand}
                               disabled = {true}/>
                         </TableRowColumn>
                         <TableRowColumn>
                           <TextField
-                              hintText="Prognose"
                               id="P3"
                               errorText={this.state.errorTextPrognose.P3}
                               errorStyle={{color:'orange'}}
@@ -497,13 +525,11 @@ class Gesamt extends React.Component {
                         </TableRowColumn>
                         <TableRowColumn>
                           <TextField
-                              hintText="Produktion für Aufträge"
                               value={this.state.P3.ProduktionAuftraege}
                               disabled = {true}/>
                         </TableRowColumn>
                         <TableRowColumn>
                         <TextField
-                              hintText="Produktion für Lage"
                               id="P3"
                               errorText={this.state.errorTextProduktionLager.P3}
                               errorStyle={{color:'orange'}}
@@ -512,7 +538,6 @@ class Gesamt extends React.Component {
                       </TableRowColumn>
                         <TableRowColumn>
                         <TextField
-                              hintText="Produktion gesamt"
                               value={this.state.P3.ProduktionGesamt}
                               disabled = {true}/>
                       </TableRowColumn>
@@ -520,31 +545,27 @@ class Gesamt extends React.Component {
 
                       <TableRow>
                         <TableRowColumn>
-                          Summe
+                          {this.props.internationalReducer.activeLanguage.strings.Summe}
                         </TableRowColumn>
                         <TableRowColumn>
                         </TableRowColumn>
                         <TableRowColumn>
                           <TextField
-                              hintText="Prognose"
                               value={this.state.Summe.Prognose}
                               disabled = {true}/>
                         </TableRowColumn>
                         <TableRowColumn>
                           <TextField
-                              hintText="Produktion für Aufträge"
                               value={this.state.Summe.ProduktionAuftraege}
                               disabled = {true}/>
                         </TableRowColumn>
                         <TableRowColumn>
                         <TextField
-                              hintText="Produktion für Lage"
                               value={this.state.Summe.ProduktionLager}
                               disabled = {true}/>
                       </TableRowColumn>
                         <TableRowColumn>
                         <TextField
-                              hintText="Produktion gesamt"
                               value={this.state.Summe.ProduktionGesamt}
                               disabled = {true}/>
                       </TableRowColumn>
@@ -580,7 +601,8 @@ class Gesamt extends React.Component {
 function mapStateToProps(state) {
   return {
     ActiveUploadXML: state.ActiveUploadXMLReducer,
-    InputXMLs: state.InputXMLReducer
+    InputXMLs: state.InputXMLReducer,
+    internationalReducer: state.internationalReducer
   }
 }
 

@@ -1,0 +1,66 @@
+.orderButton{
+    margin :10px;
+}
+
+.nextButton{
+text-decoration: none;
+ 	did-flip: true;
+    position: relative;
+    opacity: 1;
+    font-size: 14px;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin: 0;
+    padding: 0px 16px;
+    line-height: 36px;
+    color: #ffffff;
+    
+    undefined-user-select: none; 
+}
+
+.nextButtonWrapper{
+	background-color: #ff4081;
+	display: inline-block;
+	border-radius: 2px;
+	border: 10px;
+	min-width: 88px;
+	text-align: center;
+}
+
+.beforeButton{
+	text-decoration: none;
+ 	did-flip: true;
+    position: relative;
+    opacity: 1;
+    font-size: 14px;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin: 0;
+    padding: 0px 16px;
+    text-align: center;
+    line-height: 36px;
+    color: #ffffff;
+    undefined-user-select: none; 
+}
+
+.beforeButtonWrapper{
+	background-color: rgb(0, 188, 212);
+	border-radius: 2px;
+	border: 10px;
+	
+	min-width: 88px;
+}
+
+.navigationButtons{
+	float:right;
+	font-family: Roboto, sans-serif;
+	box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+    height: 36px;
+}
+
+
+.wrapperdownload{
+    text-align: center;
+}

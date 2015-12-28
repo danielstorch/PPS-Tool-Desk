@@ -227,8 +227,8 @@ class UploadXML extends React.Component {
               onRequestClose={this._handleRequestClose.bind(this)}>
               {this.state.dialogText}
             </Dialog>
-            <Dropzone onDrop={this._handleDrop.bind(this)} multiple={false} className={styles.dropzone}>
-              <span>Try dropping some files here, or click to select files to upload.</span>
+            <Dropzone onDrop={this._handleDrop.bind(this)} multiple={false} className="file-dropzone">
+              <span>{this.props.internationalReducer.activeLanguage.strings.DropFile}</span>
             </Dropzone>
             <Snackbar
               ref="snackbar"
@@ -241,5 +241,14 @@ class UploadXML extends React.Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    internationalReducer: state.internationalReducer
+  }
+}
+
 // Wrap the component to inject dispatch and state into it
-export default connect(null, dispatch => ({ dispatch }))(UploadXML)
+export default connect(mapStateToProps, dispatch => ({ dispatch }))(UploadXML)
+
+
+

@@ -23,7 +23,9 @@ export const RESET_AUFTRAGSPLANUNG_HERREN_INPUT_XML = 'RESET_AUFTRAGSPLANUNG_HER
 export const RESET_AUFTRAGSPLANUNG_KINDER_INPUT_XML = 'RESET_AUFTRAGSPLANUNG_KINDER_INPUT_XML'
 export const RESET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML = 'RESET_AUFTRAGSPLANUNG_DAMEN_INPUT_XML'
 export const SET_KAPAZITAETSPLANUNG_INPUT_XML = 'SET_KAPAZITAETSPLANUNG_INPUT_XML'
+export const RESET_KAPAZITAETSPLANUNG_INPUT_XML = 'RESET_KAPAZITAETSPLANUNG_INPUT_XML'
 export const SET_KAUFTEILDISPOSITION_INPUT_XML = 'SET_KAUFTEILDISPOSITION_INPUT_XML'
+export const RESET_KAUFTEILDISPOSITION_INPUT_XML = 'RESET_KAUFTEILDISPOSITION_INPUT_XML'
 export const SAVE_INPUT_XML = 'SAVE_INPUT_XML'
 
 export function saveInputXML(inputXML) {
@@ -61,12 +63,20 @@ export function resetAuftragsplanungKinderInputXML(id) {
   return { type: RESET_AUFTRAGSPLANUNG_KINDER_INPUT_XML, id}
 }
 
-export function setKapazitaetsplanungInputXML(kapazitaetsplanungInputXML) {
-  return { type: SET_KAPAZITAETSPLANUNG_INPUT_XML, kapazitaetsplanungInputXML}
+export function setKapazitaetsplanungInputXML(kapazitaetsplanung, id) {
+  return { type: SET_KAPAZITAETSPLANUNG_INPUT_XML, kapazitaetsplanung, id}
 }
 
-export function setKaufteildispositionInputXML(kaufteildispositionInputXML) {
-  return { type: SET_KAUFTEILDISPOSITION_INPUT_XML, kaufteildispositionInputXML}
+export function resetKapazitaetsplanungInputXML(id) {
+  return { type: RESET_KAPAZITAETSPLANUNG_INPUT_XML, id}
+}
+
+export function setKaufteildispositionInputXML(kaufteildisposition, id) {
+  return { type: SET_KAUFTEILDISPOSITION_INPUT_XML, kaufteildisposition, id}
+}
+
+export function resetKaufteildispositionInputXML(id) {
+  return { type: RESET_KAUFTEILDISPOSITION_INPUT_XML, id}
 }
 
 

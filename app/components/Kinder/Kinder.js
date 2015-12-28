@@ -3,6 +3,7 @@ import './Kinder.module.css';
 import mui from 'material-ui';
 import { connect } from 'react-redux';
 import { setAuftragsplanungKinderInputXML, resetAuftragsplanungKinderInputXML } from '../../actions/PPSToolActions';
+import { Link } from 'react-router';
 
 const Table = require('material-ui/lib/table/table');
 const TableBody = require('material-ui/lib/table/table-body');
@@ -181,35 +182,107 @@ class Kinder extends React.Component {
 
   }
 
-  componentWillMount(){
-    console.log('componentWillMount');
-    this._updateVariables();
+   componentWillMount(){
+    this._updateVariables(true)
   }
 
-  shouldComponentUpdate(){
-    return true;
-  }
+  componentDidUpdate(){
 
-  componentWillReceiveProps(){
-    this._updateVariables();
+    this._updateVariables(false);
 
   }
 
-  _updateVariables(){
+  _updateVariables(initial){
 
     var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
     var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
 
-    if(currentInputXML && currentInputXML.inputDataObject.auftragsplanungKinder){
-      this.state.VR.P3 = currentInputXML.inputDataObject.auftragsplanungKinder.VR.P3
-      this.state.GL.P3 = currentInputXML.inputDataObject.auftragsplanungKinder.GL.P3
+  if(initial == true || this.state.currentPeriode != activePeriodID){
 
-      this.state.resetButtonDisabled = false
+      if(currentInputXML){
 
-    }else{
-      this.state.resetButtonDisabled = true
-      
+        if( currentInputXML && currentInputXML.inputDataObject.auftragsplanungKinder ){
+
+          this.state.VR.P3 = currentInputXML.inputDataObject.auftragsplanungKinder.VR.P3
+        this.state.GL.P3 = currentInputXML.inputDataObject.auftragsplanungKinder.GL.P3
+
+        this.state.E26 = currentInputXML.inputDataObject.auftragsplanungKinder.GL.E26
+        this.state.E31 = currentInputXML.inputDataObject.auftragsplanungKinder.GL.E31
+        this.state.E16 = currentInputXML.inputDataObject.auftragsplanungKinder.GL.E16
+        this.state.E17 = currentInputXML.inputDataObject.auftragsplanungKinder.GL.E17
+        this.state.E30 = currentInputXML.inputDataObject.auftragsplanungKinder.GL.E30
+        this.state.E6 = currentInputXML.inputDataObject.auftragsplanungKinder.GL.E6
+        this.state.E12 = currentInputXML.inputDataObject.auftragsplanungKinder.GL.E12
+        this.state.E29 = currentInputXML.inputDataObject.auftragsplanungKinder.GL.E29
+        this.state.E9 = currentInputXML.inputDataObject.auftragsplanungKinder.GL.E9
+        this.state.E15 = currentInputXML.inputDataObject.auftragsplanungKinder.GL.E15
+        this.state.E20 = currentInputXML.inputDataObject.auftragsplanungKinder.GL.E20
+
+          this.state.resetButtonDisabled = false
+
+        } else if(currentInputXML.inputDataObject.auftragsplanungGesamt){
+
+          this.state.VR.P3 = currentInputXML.inputDataObject.auftragsplanungGesamt.P3.Prognose
+          this.state.GL.P3 = currentInputXML.inputDataObject.auftragsplanungGesamt.P3.ProduktionLager
+
+          this.state.GL.E26 = currentInputXML.inputDataObject.auftragsplanungGesamt.P3.ProduktionLager
+          this.state.GL.E31 = currentInputXML.inputDataObject.auftragsplanungGesamt.P3.ProduktionLager
+          this.state.GL.E16 = currentInputXML.inputDataObject.auftragsplanungGesamt.P3.ProduktionLager
+          this.state.GL.E17 = currentInputXML.inputDataObject.auftragsplanungGesamt.P3.ProduktionLager
+          this.state.GL.E30 = currentInputXML.inputDataObject.auftragsplanungGesamt.P3.ProduktionLager
+          this.state.GL.E6 = currentInputXML.inputDataObject.auftragsplanungGesamt.P3.ProduktionLager
+          this.state.GL.E12 = currentInputXML.inputDataObject.auftragsplanungGesamt.P3.ProduktionLager
+          this.state.GL.E29 = currentInputXML.inputDataObject.auftragsplanungGesamt.P3.ProduktionLager
+          this.state.GL.E9 = currentInputXML.inputDataObject.auftragsplanungGesamt.P3.ProduktionLager
+          this.state.GL.E15 = currentInputXML.inputDataObject.auftragsplanungGesamt.P3.ProduktionLager
+          this.state.GL.E20 = currentInputXML.inputDataObject.auftragsplanungGesamt.P3.ProduktionLager
+
+          this.state.resetButtonDisabled = true
+
+        } else{
+
+          this.state.VR.P3 = 0
+        this.state.GL.P3 = 0
+        this.state.E26 = 0
+        this.state.E31 = 0
+        this.state.E16 = 0
+        this.state.E17 = 0
+        this.state.E30 = 0
+        this.state.E6 = 0
+        this.state.E12 = 0
+        this.state.E29 = 0
+        this.state.E9 = 0
+        this.state.E15 = 0
+        this.state.E20 = 0
+
+          this.state.resetButtonDisabled = true
+
+        }
+      }else{
+
+         this.state.VR.P3 = 0
+        this.state.GL.P3 = 0
+        this.state.E26 = 0
+        this.state.E31 = 0
+        this.state.E16 = 0
+        this.state.E17 = 0
+        this.state.E30 = 0
+        this.state.E6 = 0
+        this.state.E12 = 0
+        this.state.E29 = 0
+        this.state.E9 = 0
+        this.state.E15 = 0
+        this.state.E20 = 0
+
+          this.state.resetButtonDisabled = true
+        }
+
+      this.setState({
+        currentPeriode: activePeriodID
+      });
+
     }
+
 
 
     //BW
@@ -384,7 +457,7 @@ class Kinder extends React.Component {
           console.log(currentInputXML)
           localStorage.removeItem(currentInputXML.id);
           localStorage.setItem(currentInputXML.id, JSON.stringify(currentInputXML.inputDataObject));
-          
+
         }else{
           alert('LocalStorage is not supported in your browser');
         }
@@ -402,7 +475,7 @@ class Kinder extends React.Component {
     if(isNumeric){
       errorTextList[articleId] = ''
     }else{
-      errorTextList[articleId] = 'This field must be numeric.'
+      errorTextList[articleId] = this.props.internationalReducer.activeLanguage.strings.NumericError
       value = 0
     }
     VRList[articleId] = parseInt(value)
@@ -411,6 +484,8 @@ class Kinder extends React.Component {
       errorText: errorTextList,
       VR: VRList
     });
+
+    this._updateVariables(false)
   }
 
   _handleLagerBestandChange(e){
@@ -425,7 +500,7 @@ class Kinder extends React.Component {
     if(isNumeric){
       errorTextList[articleId] = ''
     }else{
-      errorTextList[articleId] = 'This field must be numeric.'
+      errorTextList[articleId] = this.props.internationalReducer.activeLanguage.strings.NumericError
       value = 0
     }
     VRList[articleId] = parseInt(value)
@@ -434,6 +509,8 @@ class Kinder extends React.Component {
       errorTextGL: errorTextList,
       GL: VRList
     });
+
+    this._updateVariables(false)
   }
 
   _handleButtonClick(e){
@@ -464,11 +541,16 @@ class Kinder extends React.Component {
 
         this._updateLocalStorage()
         this.refs.snackbar.show();
+
+        this.setState({
+          resetButtonDisabled: false
+        });
+
       }else{
         this.setState({
           openDialogStandardActions: true,
           dialogTitle: "Error",
-          dialogText: "Please be sure that every field is a numeric"
+          dialogText: this.props.internationalReducer.activeLanguage.strings.ErrorSaveNumeric
         });
       }
 
@@ -476,7 +558,7 @@ class Kinder extends React.Component {
       this.setState({
         openDialogStandardActions: true,
         dialogTitle: "Error",
-        dialogText: "Please choose a vaild periode"
+        dialogText: this.props.internationalReducer.activeLanguage.strings.ErrorSavePeriod
       });
     }
   }
@@ -489,11 +571,36 @@ class Kinder extends React.Component {
   }
 
   _handleResetButtonClick(e){
-    this.props.dispatch(resetAuftragsplanungKinderInputXML(this.props.ActiveUploadXML.activeUploadXMLData.id))
-    this.state.VR.P3 = 0
-    this.state.GL.P3 = 0
 
-    this._updateLocalStorage()
+     this.props.dispatch(resetAuftragsplanungKinderInputXML(this.props.ActiveUploadXML.activeUploadXMLData.id))
+    let VRList = this.state.VR;
+    let GLList = this.state.GL;
+
+     VRList.P3 = 0
+        GLList.P3 = 0
+        GLList.E26 = 0
+        GLList.E31 = 0
+        GLList.E16 = 0
+        GLList.E17 = 0
+        GLList.E30 = 0
+        GLList.E6 = 0
+        GLList.E12 = 0
+        GLList.E29 = 0
+        GLList.E9 = 0
+        GLList.E15 = 0
+        GLList.E20 = 0
+
+    this.setState({
+          resetButtonDisabled: true,
+          VR: VRList,
+          GL: GLList
+        });
+
+    this._updateVariables(false);
+
+    //UpDATE LOCALSTORAGE
+    this._updateLocalStorage();
+
   }
 
 
@@ -505,64 +612,71 @@ class Kinder extends React.Component {
 
   render() {
 
-   // if(this.state.currentPeriode !== this.props.ActiveUploadXML.activeUploadXMLData.id){
-      this._updateVariables()
-   //   console.log("ALLES WIRD GEUPDATED")
-   // }
-
     let standardActions = [
       { text: 'Ok', onTouchTap: this._onDialogOk.bind(this), ref: 'ok' }
     ];
 
     return (
       <div>
-        <h1>Auftragsplanung Kinder-Fahrrad</h1>
+        <h1>{this.props.internationalReducer.activeLanguage.strings.TitelKinder}</h1>
 
-        <RaisedButton label="Save" primary={true} onTouchTap={this._handleButtonClick} />
-        <RaisedButton label="Reset" secondary={true} disabled={this.state.resetButtonDisabled} onTouchTap={this._handleResetButtonClick}/>
-
+        <RaisedButton label={this.props.internationalReducer.activeLanguage.strings.Speichern} primary={true} onTouchTap={this._handleButtonClick} />
+        <RaisedButton label={this.props.internationalReducer.activeLanguage.strings.Reset} secondary={true} disabled={this.state.resetButtonDisabled} onTouchTap={this._handleResetButtonClick}/>
+        <div className="navigationButtons">
+          <div className="beforeButtonWrapper" >
+            <Link className="beforeButton" to="/auftragsplanung/damen">
+                  {this.props.internationalReducer.activeLanguage.strings.Back}
+            </Link>
+          </div>
+          <div className="nextButtonWrapper">
+          <Link className="nextButton" to="/kapazitaetsplanung">
+                  {this.props.internationalReducer.activeLanguage.strings.Next}
+          </Link>
+          </div>
+        </div>
         <Table
           height={this.state.height}
           fixedHeader={this.state.fixedHeader}
           selectable={this.state.selectable}
           >
-          <TableBody>
-          <TableHeader >
+          <TableHeader adjustForCheckbox={this.state.displayRowCheckbox}
+                       displaySelectAll={this.state.displayRowCheckbox}
+                       enableSelectAll={this.state.enableSelectAll}>
             <TableRow selectable={this.state.selectable}>
-              <TableHeaderColumn colSpan="7" tooltip='Kinder Fahrrad' style={{textAlign: 'center'}}>
-                Kinder Fahrrad
+              <TableHeaderColumn colSpan="8" style={{textAlign: 'center'}}>
+                {this.props.internationalReducer.activeLanguage.strings.KinderFahrrad}
               </TableHeaderColumn>
             </TableRow>
-          </TableHeader>
-          </TableBody>
 
-          <TableBody displayRowCheckbox={this.state.displayRowCheckbox}>
-          <TableRow>
-              <TableRowColumn>
-                Artikel
-              </TableRowColumn>
-              <TableRowColumn>
-                Vertriebswunsch
-              </TableRowColumn>
-              <TableRowColumn>
-                Bedarf für WS
-              </TableRowColumn>
-              <TableRowColumn>
-                Geplanter Lagerbestand
-              </TableRowColumn>
-              <TableRowColumn>
-              Aktueller Lagerbestand
-            </TableRowColumn>
-              <TableRowColumn>
-              Warteschlange
-            </TableRowColumn>
-              <TableRowColumn>
-                Bearbeitung
-              </TableRowColumn>
-              <TableRowColumn>
-                Aufträge
-              </TableRowColumn>
+            <TableRow>
+              <TableHeaderColumn>
+                {this.props.internationalReducer.activeLanguage.strings.Artikel}
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                {this.props.internationalReducer.activeLanguage.strings.Vertriebswunsch}
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                {this.props.internationalReducer.activeLanguage.strings.BedarfWS}
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                {this.props.internationalReducer.activeLanguage.strings.GeplanterLagerbestand}
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                {this.props.internationalReducer.activeLanguage.strings.AktuellerLagerbestand}
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                {this.props.internationalReducer.activeLanguage.strings.Warteschlange}
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                {this.props.internationalReducer.activeLanguage.strings.Bearbeitung}
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                {this.props.internationalReducer.activeLanguage.strings.Aufträge}
+              </TableHeaderColumn>
             </TableRow>
+
+          </TableHeader>
+          <TableBody displayRowCheckbox={this.state.displayRowCheckbox}>
             <TableRow>
               <TableRowColumn>P3</TableRowColumn>
               <TableRowColumn>
@@ -596,14 +710,12 @@ class Kinder extends React.Component {
                   hintText="Warteschlange"
                   value = {this.state.WS.P3}
                   disabled = {true}/>
-                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
                   hintText="Bearbeitung"
                   value = {this.state.BA.P3}
                   disabled = {true}/>
-                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -637,8 +749,7 @@ class Kinder extends React.Component {
                   errorText={this.state.errorTextGL.E26}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E26}
-                  disabled = {true}/>
+                  value= {this.state.GL.E26}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -693,8 +804,7 @@ class Kinder extends React.Component {
                   errorText={this.state.errorTextGL.E31}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E31}
-                  disabled = {true}/>
+                  value= {this.state.GL.E31}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -748,8 +858,7 @@ class Kinder extends React.Component {
                   errorText={this.state.errorTextGL.E16}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E16}
-                  disabled = {true}/>
+                  value= {this.state.GL.E16}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -803,8 +912,7 @@ class Kinder extends React.Component {
                   errorText={this.state.errorTextGL.E17}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E17}
-                  disabled = {true}/>
+                  value= {this.state.GL.E17}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -858,8 +966,7 @@ class Kinder extends React.Component {
                 errorText={this.state.errorTextGL.E30}
                 errorStyle={{color:'orange'}}
                 onChange={this._handleLagerBestandChange}
-                value= {this.state.GL.E30}
-                disabled = {true}/>
+                value= {this.state.GL.E30}/>
             </TableRowColumn>
             <TableRowColumn>
               <TextField
@@ -913,8 +1020,7 @@ class Kinder extends React.Component {
                   errorText={this.state.errorTextGL.E6}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E6}
-                  disabled = {true}/>
+                  value= {this.state.GL.E6}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -968,8 +1074,7 @@ class Kinder extends React.Component {
                   errorText={this.state.errorTextGL.E12}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E12}
-                  disabled = {true}/>
+                  value= {this.state.GL.E12}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -1023,8 +1128,7 @@ class Kinder extends React.Component {
                   errorText={this.state.errorTextGL.E29}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E29}
-                  disabled = {true}/>
+                  value= {this.state.GL.E29}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -1078,8 +1182,7 @@ class Kinder extends React.Component {
                   errorText={this.state.errorTextGL.E9}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E9}
-                  disabled = {true}/>
+                  value= {this.state.GL.E9}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -1133,8 +1236,7 @@ class Kinder extends React.Component {
                   errorText={this.state.errorTextGL.E15}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E15}
-                  disabled = {true}/>
+                  value= {this.state.GL.E15}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -1188,8 +1290,7 @@ class Kinder extends React.Component {
                   errorText={this.state.errorTextGL.E20}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E20}
-                  disabled = {true}/>
+                  value= {this.state.GL.E20}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
@@ -1249,7 +1350,9 @@ class Kinder extends React.Component {
 function mapStateToProps(state) {
   return {
     ActiveUploadXML: state.ActiveUploadXMLReducer,
-    InputXMLs: state.InputXMLReducer
+    InputXMLs: state.InputXMLReducer,
+    internationalReducer: state.internationalReducer
+
   }
 }
 

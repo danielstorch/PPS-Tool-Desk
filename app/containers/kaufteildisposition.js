@@ -8,6 +8,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { setCurrentPage, closeOpenNavLeft } from '../actions/PPSToolActions';
+import Kaufteildisposition from '../components/Kaufteildisposition/Kaufteildisposition'
 
 class KaufteildispositionPage extends Component {
 
@@ -18,8 +19,7 @@ componentDidMount(){
   render() {
     return (
       <div>
-        <h1>Kaufteildisposition Page</h1>
-        <p>Coming soon.</p>
+        <Kaufteildisposition/>
       </div>
     );
   }

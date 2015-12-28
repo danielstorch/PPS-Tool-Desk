@@ -86,14 +86,7 @@ class Navigation extends React.Component {
 
   _onDropDownPeriodChange(e) {
 
-    for(let uploadResults of this.props.UploadXMLReducer) {
-      if(uploadResults.id === e.target.value){
-        this.props.dispatch(setActiveUploadResultsXMLData(uploadResults));
-        break;
-      }else if(e.target.value === 'result_P-1'){
-        this.props.dispatch(setActiveUploadResultsXMLData({id:"result_P-1"}));
-      }
-    }
+    this.props.dispatch(setLanguage(e.target.value));
 
   }
 
@@ -225,12 +218,7 @@ console.log(menuItemsLanguage)
                       {this.props.internationalReducer.activeLanguage.strings.Kapazitaetsplanung}
                   </Link> 
               </MenuItem>
-              <MenuItem index={10} iconClassName="MenuItem-icon-upload" iconStyle={{"marginRight":"0px", "top":"10px"}}>
-                <Link className={styles.NavigationLink} to="/upload">
-                      {this.props.internationalReducer.activeLanguage.strings.Upload}
-                </Link>
-              </MenuItem>
-              <MenuItem index={11} iconClassName="MenuItem-icon-download" iconStyle={{"marginRight":"0px", "top":"10px"}}>
+              <MenuItem index={10} iconClassName="MenuItem-icon-download" iconStyle={{"marginRight":"0px", "top":"10px"}}>
                 <Link className={styles.NavigationLink} to="/download">
                     {this.props.internationalReducer.activeLanguage.strings.Download}
                 </Link>

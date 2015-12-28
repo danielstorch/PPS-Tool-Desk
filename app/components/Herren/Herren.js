@@ -3,6 +3,7 @@ import './Herren.module.css';
 import mui from 'material-ui';
 import { connect } from 'react-redux';
 import { setAuftragsplanungHerrenInputXML, resetAuftragsplanungHerrenInputXML } from '../../actions/PPSToolActions';
+import { Link } from 'react-router';
 
 const Table = require('material-ui/lib/table/table');
 const TableBody = require('material-ui/lib/table/table-body');
@@ -15,16 +16,11 @@ const RaisedButton = require('material-ui/lib/raised-button');
 const Dialog = require('material-ui/lib/dialog');
 const Snackbar = require('material-ui/lib/snackbar');
 
-
 const TextField = require('material-ui/lib/text-field');
 
 
-
-
-
-
 class Herren extends React.Component {
-  //this._handleClick = this._handleClick.bind(this);
+  
   constructor() {
     super();
     this._getWarehousestock = this._getWarehousestock.bind(this);
@@ -40,6 +36,7 @@ class Herren extends React.Component {
 
 
     this.state = {
+      currentPeriode:"",
       modal: true,
       openDialogStandardActions: false,
       dialogTitle: "Dialog",
@@ -183,28 +180,107 @@ class Herren extends React.Component {
 
   }
 
-  componentWillMount(){
-    this._updateVariables();
+   componentWillMount(){
+    this._updateVariables(true)
   }
 
-  shouldComponentUpdate(){
-    return true;
+  componentDidUpdate(){
+
+    this._updateVariables(false);
+
   }
 
-  _updateVariables(){
+  _updateVariables(initial){
 
     var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
     var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
 
-    if(currentInputXML && currentInputXML.inputDataObject.auftragsplanungHerren){
-      this.state.VR.P1 = currentInputXML.inputDataObject.auftragsplanungHerren.VR.P1
-      this.state.GL.P1 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.P1
+    if(initial == true || this.state.currentPeriode != activePeriodID){
 
-      this.state.resetButtonDisabled = false
+      if(currentInputXML){
 
-    }else{
-      this.state.resetButtonDisabled = true
-      
+        if( currentInputXML && currentInputXML.inputDataObject.auftragsplanungHerren ){
+
+           this.state.VR.P1 = currentInputXML.inputDataObject.auftragsplanungHerren.VR.P1
+          this.state.GL.P1 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.P1
+
+          this.state.GL.E26 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E26
+          this.state.GL.E51 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E51
+          this.state.GL.E16 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E16
+          this.state.GL.E17 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E17
+          this.state.GL.E50 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E50
+          this.state.GL.E4 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E4
+          this.state.GL.E10 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E10
+          this.state.GL.E49 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E49
+          this.state.GL.E7 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E7
+          this.state.GL.E13 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E13
+          this.state.GL.E18 = currentInputXML.inputDataObject.auftragsplanungHerren.GL.E18
+
+          this.state.resetButtonDisabled = false
+
+        } else if(currentInputXML.inputDataObject.auftragsplanungGesamt){
+
+          this.state.VR.P1 = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.Prognose
+          this.state.GL.P1 = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+
+          this.state.GL.E26 = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+          this.state.GL.E51 = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+          this.state.GL.E16 = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+          this.state.GL.E17 = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+          this.state.GL.E50 = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+          this.state.GL.E4 = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+          this.state.GL.E10 = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+          this.state.GL.E49 = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+          this.state.GL.E7 = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+          this.state.GL.E13 = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+          this.state.GL.E18 = currentInputXML.inputDataObject.auftragsplanungGesamt.P1.ProduktionLager
+
+          this.state.resetButtonDisabled = true
+
+        } else{
+
+          this.state.VR.P1 = 0
+        this.state.GL.P1 = 0
+
+        this.state.GL.E26 = 0
+        this.state.GL.E51 = 0
+        this.state.GL.E16 = 0
+        this.state.GL.E17 = 0
+        this.state.GL.E50 = 0
+        this.state.GL.E4 = 0
+        this.state.GL.E10 = 0
+        this.state.GL.E49 = 0
+        this.state.GL.E7 = 0
+        this.state.GL.E13 = 0
+        this.state.GL.E18 = 0
+
+          this.state.resetButtonDisabled = true
+
+        }
+      }else{
+
+         this.state.VR.P1 = 0
+        this.state.GL.P1 = 0
+
+        this.state.GL.E26 = 0
+        this.state.GL.E51 = 0
+        this.state.GL.E16 = 0
+        this.state.GL.E17 = 0
+        this.state.GL.E50 = 0
+        this.state.GL.E4 = 0
+        this.state.GL.E10 = 0
+        this.state.GL.E49 = 0
+        this.state.GL.E7 = 0
+        this.state.GL.E13 = 0
+        this.state.GL.E18 = 0
+
+          this.state.resetButtonDisabled = true
+        }
+
+      this.setState({
+        currentPeriode: activePeriodID
+      });
+
     }
 
     //BW
@@ -262,7 +338,7 @@ class Herren extends React.Component {
       this.state.BA.E7 = this._getOrdersinwork('7');
       this.state.BA.E13 = this._getOrdersinwork('13');
       this.state.BA.E18 = this._getOrdersinwork('18');
-    
+
 
     this.state.AU.P1 = Math.max(0,(this.state.VR.P1 + this.state.GL.P1 - this.state.AL.P1 - this.state.WS.P1 - this.state.BA.P1));
     this.state.VR.E26 = this.state.AU.P1
@@ -361,7 +437,7 @@ class Herren extends React.Component {
     if(isNumeric){
       errorTextList[articleId] = ''
     }else{
-      errorTextList[articleId] = 'This field must be numeric.'
+      errorTextList[articleId] = this.props.internationalReducer.activeLanguage.strings.NumericError
       value = 0
     }
     VRList[articleId] = parseInt(value)
@@ -371,6 +447,8 @@ class Herren extends React.Component {
       errorText: errorTextList,
       VR: VRList
     });
+
+    this._updateVariables(false);
   }
 
   _updateLocalStorage(){
@@ -380,7 +458,7 @@ class Herren extends React.Component {
           console.log(currentInputXML)
           localStorage.removeItem(currentInputXML.id);
           localStorage.setItem(currentInputXML.id, JSON.stringify(currentInputXML.inputDataObject));
-          
+
         }else{
           alert('LocalStorage is not supported in your browser');
         }
@@ -398,7 +476,7 @@ class Herren extends React.Component {
     if(isNumeric){
       errorTextList[articleId] = ''
     }else{
-      errorTextList[articleId] = 'This field must be numeric.'
+      errorTextList[articleId] = this.props.internationalReducer.activeLanguage.strings.NumericError
       value = 0
     }
     VRList[articleId] = parseInt(value)
@@ -407,7 +485,10 @@ class Herren extends React.Component {
       errorTextGL: errorTextList,
       GL: VRList
     });
+
+    this._updateVariables(false);
   }
+
 _handleSaveButtonClick(e){
 
     var errorlol = false;
@@ -439,11 +520,15 @@ _handleSaveButtonClick(e){
         this.props.dispatch(setAuftragsplanungHerrenInputXML(auftragsplanungHerren, this.props.ActiveUploadXML.activeUploadXMLData.id));
         this._updateLocalStorage();
         this.refs.snackbar.show();
+
+        this.setState({
+          resetButtonDisabled: false
+        });
       }else{
               this.setState({
                 openDialogStandardActions: true,
                 dialogTitle: "Error",
-                dialogText: "Please be sure that every field is a numeric"
+                dialogText: this.props.internationalReducer.activeLanguage.strings.ErrorSaveNumeric
               });
       }
 
@@ -451,7 +536,7 @@ _handleSaveButtonClick(e){
               this.setState({
                 openDialogStandardActions: true,
                 dialogTitle: "Error",
-                dialogText: "Please choose a vaild periode"
+                dialogText: this.props.internationalReducer.activeLanguage.strings.ErrorSavePeriod
               });
     }
   }
@@ -465,8 +550,32 @@ _handleSaveButtonClick(e){
 
   _handleResetButtonClick(e){
     this.props.dispatch(resetAuftragsplanungHerrenInputXML(this.props.ActiveUploadXML.activeUploadXMLData.id))
-    this.state.VR.P1 = 0
-    this.state.GL.P1 = 0
+
+    let VRList = this.state.VR;
+    let GLList = this.state.GL;
+
+      VRList.P1 = 0
+        GLList.P1 = 0
+
+        GLList.E26 = 0
+        GLList.E51 = 0
+        GLList.E16 = 0
+        GLList.E17 = 0
+        GLList.E50 = 0
+        GLList.E4 = 0
+        GLList.E10 = 0
+        GLList.E49 = 0
+        GLList.E7 = 0
+        GLList.E13 = 0
+        GLList.E18 = 0
+
+    this.setState({
+          resetButtonDisabled: true,
+          VR: VRList,
+          GL: GLList
+        });
+
+    this._updateVariables(false);
 
     this._updateLocalStorage();
   }
@@ -479,12 +588,6 @@ _handleSaveButtonClick(e){
 
   render() {
 
-    // if(this.state.currentPeriode !== this.props.ActiveUploadXML.activeUploadXMLData.id){
-    //
-    //   console.log("ALLES WIRD GEUPDATED")
-    // }
-this._updateVariables()
-
       let standardActions = [
       { text: 'Ok', onTouchTap: this._onDialogOk.bind(this), ref: 'ok' }
     ];
@@ -494,56 +597,70 @@ this._updateVariables()
         <div>
         <h1>Auftragsplanung Herren-Fahrrad</h1>
 
-        <RaisedButton label="Save" primary={true} onTouchTap={this._handleSaveButtonClick}/>
-        <RaisedButton label="Reset" secondary={true} disabled={this.state.resetButtonDisabled} onTouchTap={this._handleResetButtonClick}/>
+        <RaisedButton label={this.props.internationalReducer.activeLanguage.strings.Speichern} primary={true} onTouchTap={this._handleSaveButtonClick}/>
+        <RaisedButton label={this.props.internationalReducer.activeLanguage.strings.Reset} secondary={true} disabled={this.state.resetButtonDisabled} onTouchTap={this._handleResetButtonClick}/>
+
+
+         <div className="navigationButtons">
+          <div className="beforeButtonWrapper" >
+            <Link className="beforeButton" to="/auftragsplanung/gesamt">
+                  {this.props.internationalReducer.activeLanguage.strings.Back}
+            </Link>
+          </div>
+          <div className="nextButtonWrapper">
+          <Link className="nextButton" to="/auftragsplanung/damen">
+                  {this.props.internationalReducer.activeLanguage.strings.Next}
+          </Link>
+          </div>
+        </div>
 
         <Table
           height={this.state.height}
           fixedHeader={this.state.fixedHeader}
           selectable={this.state.selectable}
           >
-          <TableBody>
-          <TableHeader >
+          <TableHeader adjustForCheckbox={this.state.displayRowCheckbox}
+                       displaySelectAll={this.state.displayRowCheckbox}
+                       enableSelectAll={this.state.enableSelectAll}>
             <TableRow selectable={this.state.selectable}>
-              <TableHeaderColumn colSpan="7" tooltip='Herren Fahrrad' style={{textAlign: 'center'}}>
-                Herren Fahrrad
+              <TableHeaderColumn colSpan="8" style={{textAlign: 'center'}}>
+                {this.props.internationalReducer.activeLanguage.strings.HerrenFahrrad}
               </TableHeaderColumn>
             </TableRow>
-          </TableHeader>
-          </TableBody>
 
-          <TableBody displayRowCheckbox={this.state.displayRowCheckbox}>
-          <TableRow>
-              <TableRowColumn>
-                Artikel
-              </TableRowColumn>
-              <TableRowColumn>
-                Vertriebswunsch
-              </TableRowColumn>
-              <TableRowColumn>
-                Bedarf für WS
-              </TableRowColumn>
-              <TableRowColumn>
-                Geplanter Lagerbestand
-              </TableRowColumn>
-              <TableRowColumn>
-              Aktueller Lagerbestand
-            </TableRowColumn>
-              <TableRowColumn>
-              Warteschlange
-            </TableRowColumn>
-              <TableRowColumn>
-                Bearbeitung
-              </TableRowColumn>
-              <TableRowColumn>
-                Aufträge
-              </TableRowColumn>
+            <TableRow>
+              <TableHeaderColumn>
+                {this.props.internationalReducer.activeLanguage.strings.Artikel}
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                {this.props.internationalReducer.activeLanguage.strings.Vertriebswunsch}
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                {this.props.internationalReducer.activeLanguage.strings.BedarfWS}
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                {this.props.internationalReducer.activeLanguage.strings.GeplanterLagerbestand}
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                {this.props.internationalReducer.activeLanguage.strings.AktuellerLagerbestand}
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                {this.props.internationalReducer.activeLanguage.strings.Warteschlange}
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                {this.props.internationalReducer.activeLanguage.strings.Bearbeitung}
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                {this.props.internationalReducer.activeLanguage.strings.Aufträge}
+              </TableHeaderColumn>
             </TableRow>
+
+          </TableHeader>
+          <TableBody displayRowCheckbox={this.state.displayRowCheckbox}>
             <TableRow>
               <TableRowColumn>P1</TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Vertriebswunsch"
                   id="P1"
                   errorText={this.state.errorText.P1}
                   errorStyle={{color:'orange'}}
@@ -555,7 +672,6 @@ this._updateVariables()
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Geplanter Lagerbestand"
                   id="P1"
                   errorText={this.state.errorTextGL.P1}
                   errorStyle={{color:'orange'}}
@@ -564,27 +680,21 @@ this._updateVariables()
               </TableRowColumn>
               <TableRowColumn>
               <TextField
-                  hintText="Aktueller Lagerbestand"
                   value = {this.state.AL.P1}
                   disabled = {true}/>
             </TableRowColumn>
               <TableRowColumn>
               <TextField
-                  hintText="Warteschlange"
                   value = {this.state.WS.P1}
                   disabled = {true}/>
-                />
             </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bearbeitung"
                   value = {this.state.BA.P1}
                   disabled = {true}/>
-                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aufträge"
                   value= {this.state.AU.P1}
                   disabled = {true}/>
               </TableRowColumn>
@@ -593,52 +703,43 @@ this._updateVariables()
               <TableRowColumn><b><font color="red">E26</font></b></TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Vertriebswunsch"
                   id="E26"
                   errorText={this.state.errorText.E26}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
                   value= {this.state.VR.E26}
                   disabled = {true}/>
-                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bedarf für WS"
                   value = {this.state.BW.E26}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Geplanter Lagerbestand"
                   id="E26"
                   errorText={this.state.errorTextGL.E26}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E26}
-                  disabled = {true}/>
+                  value= {this.state.GL.E26}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aktueller Lagerbestand"
                   value = {this.state.AL.E26}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Warteschlange"
                   value = {this.state.WS.E26}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bearbeitung"
                   value = {this.state.BA.E26}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aufträge"
                   value= {this.state.AU.E26}
                   disabled = {true}/>
               </TableRowColumn>
@@ -647,52 +748,43 @@ this._updateVariables()
               <TableRowColumn displayBorder = {true}>E51</TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Vertriebswunsch"
                   id="E51"
                   errorText={this.state.errorText.E51}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
                   value= {this.state.VR.E51}
                   disabled = {true}/>
-                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bedarf für WS"
                   value = {this.state.BW.E51}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Geplanter Lagerbestand"
                   id="E51"
                   errorText={this.state.errorTextGL.E51}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E51}
-                  disabled = {true}/>
+                  value= {this.state.GL.E51}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aktueller Lagerbestand"
                   value = {this.state.AL.E51}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Warteschlange"
                   value = {this.state.WS.E51}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bearbeitung"
                   value = {this.state.BA.E51}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aufträge"
                   value= {this.state.AU.E51}
                   disabled = {true}/>
               </TableRowColumn>
@@ -701,52 +793,43 @@ this._updateVariables()
               <TableRowColumn><b><font color="red">E16</font></b></TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Vertriebswunsch"
                   id="E16"
                   errorText={this.state.errorText.E16}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
                   value= {this.state.VR.E16}
                   disabled = {true}/>
-                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bedarf für WS"
                   value = {this.state.BW.E16}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Geplanter Lagerbestand"
                   id="E16"
                   errorText={this.state.errorTextGL.E16}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E16}
-                  disabled = {true}/>
+                  value= {this.state.GL.E16}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aktueller Lagerbestand"
                   value = {this.state.AL.E16}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Warteschlange"
                   value = {this.state.WS.E16}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bearbeitung"
                   value = {this.state.BA.E16}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aufträge"
                   value= {this.state.AU.E16}
                   disabled = {true}/>
               </TableRowColumn>
@@ -755,52 +838,43 @@ this._updateVariables()
               <TableRowColumn><b><font color="red">E17</font></b></TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Vertriebswunsch"
                   id="E17"
                   errorText={this.state.errorText.E17}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
                   value= {this.state.VR.E17}
                   disabled = {true}/>
-                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bedarf für WS"
                   value = {this.state.BW.E17}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Geplanter Lagerbestand"
                   id="E17"
                   errorText={this.state.errorTextGL.E17}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E17}
-                  disabled = {true}/>
+                  value= {this.state.GL.E17}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aktueller Lagerbestand"
                   value = {this.state.AL.E17}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Warteschlange"
                   value = {this.state.WS.E17}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bearbeitung"
                   value = {this.state.BA.E17}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aufträge"
                   value= {this.state.AU.E17}
                   disabled = {true}/>
               </TableRowColumn>
@@ -809,52 +883,43 @@ this._updateVariables()
               <TableRowColumn>E50</TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Vertriebswunsch"
                   id="E50"
                   errorText={this.state.errorText.E50}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
                   value= {this.state.VR.E50}
                   disabled = {true}/>
-                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bedarf für WS"
                   value = {this.state.BW.E50}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Geplanter Lagerbestand"
                   id="E50"
                   errorText={this.state.errorTextGL.E50}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E50}
-                  disabled = {true}/>
+                  value= {this.state.GL.E50}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aktueller Lagerbestand"
                   value = {this.state.AL.E50}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Warteschlange"
                   value = {this.state.WS.E50}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bearbeitung"
                   value = {this.state.BA.E50}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aufträge"
                   value= {this.state.AU.E50}
                   disabled = {true}/>
               </TableRowColumn>
@@ -863,52 +928,43 @@ this._updateVariables()
               <TableRowColumn>E4</TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Vertriebswunsch"
                   id="E4"
                   errorText={this.state.errorText.E4}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
                   value= {this.state.VR.E4}
                   disabled = {true}/>
-                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bedarf für WS"
                   value = {this.state.BW.E4}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Geplanter Lagerbestand"
                   id="E4"
                   errorText={this.state.errorTextGL.E4}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E4}
-                  disabled = {true}/>
+                  value= {this.state.GL.E4}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aktueller Lagerbestand"
                   value = {this.state.AL.E4}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Warteschlange"
                   value = {this.state.WS.E4}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bearbeitung"
                   value = {this.state.BA.E4}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aufträge"
                   value= {this.state.AU.E4}
                   disabled = {true}/>
               </TableRowColumn>
@@ -917,52 +973,43 @@ this._updateVariables()
               <TableRowColumn>E10</TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Vertriebswunsch"
                   id="E10"
                   errorText={this.state.errorText.E10}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleVetriebswunschChange}
                   value= {this.state.VR.E10}
                   disabled = {true}/>
-                />
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bedarf für WS"
                   value = {this.state.BW.E10}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Geplanter Lagerbestand"
                   id="E10"
                   errorText={this.state.errorTextGL.E10}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E10}
-                  disabled = {true}/>
+                  value= {this.state.GL.E10}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aktueller Lagerbestand"
                   value = {this.state.AL.E10}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Warteschlange"
                   value = {this.state.WS.E10}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bearbeitung"
                   value = {this.state.BA.E10}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aufträge"
                   value= {this.state.AU.E10}
                   disabled = {true}/>
               </TableRowColumn>
@@ -971,52 +1018,43 @@ this._updateVariables()
             <TableRowColumn>E49</TableRowColumn>
             <TableRowColumn>
               <TextField
-                hintText="Vertriebswunsch"
                 value= {this.state.VR.E49}
                 id="E49"
                 errorText={this.state.errorText.E49}
                 errorStyle={{color:'orange'}}
                 onChange={this._handleVetriebswunschChange}
                 disabled = {true}/>
-              />
             </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bedarf für WS"
                   value = {this.state.BW.E49}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Geplanter Lagerbestand"
                   id="E49"
                   errorText={this.state.errorTextGL.E49}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E49}
-                  disabled = {true}/>
+                  value= {this.state.GL.E49}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aktueller Lagerbestand"
                   value = {this.state.AL.E49}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Warteschlange"
                   value = {this.state.WS.E49}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bearbeitung"
                   value = {this.state.BA.E49}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aufträge"
                   value= {this.state.AU.E49}
                   disabled = {true}/>
               </TableRowColumn>
@@ -1025,7 +1063,6 @@ this._updateVariables()
               <TableRowColumn>E7</TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Vertriebswunsch"
                   value= {this.state.VR.E7}
                   id="E7"
                   errorText={this.state.errorText.E7}
@@ -1035,41 +1072,34 @@ this._updateVariables()
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bedarf für WS"
                   value = {this.state.BW.E7}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Geplanter Lagerbestand"
                   id="E7"
                   errorText={this.state.errorTextGL.E7}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E7}
-                  disabled = {true}/>
+                  value= {this.state.GL.E7}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aktueller Lagerbestand"
                   value = {this.state.AL.E7}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Warteschlange"
                   value = {this.state.WS.E7}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bearbeitung"
                   value = {this.state.BA.E7}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aufträge"
                   value= {this.state.AU.E7}
                   disabled = {true}/>
               </TableRowColumn>
@@ -1078,7 +1108,6 @@ this._updateVariables()
               <TableRowColumn>E13</TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Vertriebswunsch"
                   id="E13"
                   errorText={this.state.errorText.E13}
                   errorStyle={{color:'orange'}}
@@ -1088,41 +1117,34 @@ this._updateVariables()
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bedarf für WS"
                   value = {this.state.BW.E13}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Geplanter Lagerbestand"
                   id="E13"
                   errorText={this.state.errorTextGL.E13}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E13}
-                  disabled = {true}/>
+                  value= {this.state.GL.E13}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aktueller Lagerbestand"
                   value = {this.state.AL.E13}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Warteschlange"
                   value = {this.state.WS.E13}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bearbeitung"
                   value = {this.state.BA.E13}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aufträge"
                   value= {this.state.AU.E13}
                   disabled = {true}/>
               </TableRowColumn>
@@ -1131,7 +1153,6 @@ this._updateVariables()
               <TableRowColumn>E18</TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Vertriebswunsch"
                   id="E18"
                   errorText={this.state.errorText.E18}
                   errorStyle={{color:'orange'}}
@@ -1141,41 +1162,34 @@ this._updateVariables()
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bedarf für WS"
                   value = {this.state.BW.E18}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Geplanter Lagerbestand"
                   id="E18"
                   errorText={this.state.errorTextGL.E18}
                   errorStyle={{color:'orange'}}
                   onChange={this._handleLagerBestandChange}
-                  value= {this.state.GL.E18}
-                  disabled = {true}/>
+                  value= {this.state.GL.E18}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aktueller Lagerbestand"
                   value = {this.state.AL.E18}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Warteschlange"
                   value = {this.state.WS.E18}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Bearbeitung"
                   value = {this.state.BA.E18}
                   disabled = {true}/>
               </TableRowColumn>
               <TableRowColumn>
                 <TextField
-                  hintText="Aufträge"
                   value= {this.state.AU.E18}
                   disabled = {true}/>
               </TableRowColumn>
@@ -1210,7 +1224,9 @@ this._updateVariables()
 function mapStateToProps(state) {
   return {
     ActiveUploadXML: state.ActiveUploadXMLReducer,
-    InputXMLs: state.InputXMLReducer
+    InputXMLs: state.InputXMLReducer,
+    internationalReducer: state.internationalReducer
+
   }
 }
 
