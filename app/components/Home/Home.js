@@ -3,7 +3,7 @@
 import React, { PropTypes } from 'react';
 import mui from 'material-ui';
 import { connect } from 'react-redux';
-import './Home.module.css';
+import styles from './Home.module.css';
 import { Link } from 'react-router';
 
 var RaisedButton = mui.RaisedButton,
@@ -21,11 +21,11 @@ class Home extends React.Component {
 
     return (
         <div>
-          <div className="wrappper">
-            <h1 className="headder">{this.props.internationalReducer.activeLanguage.strings.Willkommen}</h1>
+          <div className={styles.wrappper}>
+            <h1 className={styles.headder}>{this.props.internationalReducer.activeLanguage.strings.Willkommen}</h1>
 
-            <div className="shake-slow shake-constant shake-constant--hover startButtonWrapper">
-                <Link className="startButton" to="/auftragsplanung/gesamt">
+            <div className={styles.startButtonWrapper}>
+                <Link className={styles.startButton} to="/auftragsplanung/gesamt">
                   {this.props.internationalReducer.activeLanguage.strings.Starten}
                 </Link>
             </div>

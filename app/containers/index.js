@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { setCurrentPage, closeOpenNavLeft } from '../actions/PPSToolActions';
 
 import Home from '../components/Home'
+import UploadXML from '../components/UploadXML'
 
 class HomePage extends Component {
 	componentDidMount(){
@@ -20,6 +21,7 @@ class HomePage extends Component {
     return (
       <div>
         <Home/>
+        <UploadXML/>
       </div>
     );
   }

@@ -300,10 +300,10 @@ class Kinder extends React.Component {
 
     //AL
     this.state.AL.P3 = this._getWarehousestock('3');
-    this.state.AL.E26 = Math.ceil(this._getWarehousestock('26'));
+    this.state.AL.E26 = Math.ceil(this._getWarehousestock('26')/3);
     this.state.AL.E31 = this._getWarehousestock('31');
-    this.state.AL.E16 = Math.ceil(this._getWarehousestock('16'));
-    this.state.AL.E17 = Math.ceil(this._getWarehousestock('17'));
+    this.state.AL.E16 = Math.ceil(this._getWarehousestock('16')/3);
+    this.state.AL.E17 = Math.ceil(this._getWarehousestock('17')/3);
     this.state.AL.E30 = this._getWarehousestock('30');
     this.state.AL.E6 = this._getWarehousestock('6');
     this.state.AL.E12 = this._getWarehousestock('12');
@@ -438,11 +438,14 @@ class Kinder extends React.Component {
 
     var currentAmount = 0;
     if(currentInputXML){
+      if(currentInputXML.inputDataObject.results.ordersinwork[0].workplace){
+
       currentInputXML.inputDataObject.results.ordersinwork[0].workplace.forEach(function (elementWorkplace){
         if(elementWorkplace.$.item === articleId){
           currentAmount = parseInt(elementWorkplace.$.amount) + currentAmount
         }
       }.bind(this))
+    }
 
     }
 

@@ -90,6 +90,10 @@ const initialState = {
         TitelKaufteilDisposition:'Kaufteildisposition',
         Periode: 'Periode',
         ProduktionsProgramm: 'Produktionsprogramm',
+        DropDownNormal: 'Normal',
+        DropDownPessimistisch: 'Pessimistisch',
+        DropDownOptimistisch: 'Optimistisch',
+        localStorageDeleteButton: 'Lösche Speicher'
 
 
 
@@ -182,6 +186,10 @@ const initialState = {
               TitelKaufteilDisposition:'Kaufteildisposition',
               Periode: 'Periode',
               ProduktionsProgramm: 'Produktionsprogramm',
+              DropDownNormal: 'Normal',
+              DropDownPessimistisch: 'Pessimistisch',
+              DropDownOptimistisch: 'Optimistisch',
+              localStorageDeleteButton: 'Lösche Speicher'
 
 
             }},
@@ -273,6 +281,10 @@ const initialState = {
               TitelKaufteilDisposition:'Purchase Part Disposition',
               Periode: 'periode',
               ProduktionsProgramm: 'productionprogramm',
+              DropDownNormal: 'normal',
+              DropDownPessimistisch: 'pessimistic',
+              DropDownOptimistisch: 'optimistic',
+              localStorageDeleteButton: 'Delete storage'
 
 
             }}]}

@@ -171,7 +171,7 @@ console.log(menuItemsLanguage)
           <AppBar title={
                     <div>
                       <h1 style={this.getStyles().title1} >PPSTool</h1>
-                      <h1  style={this.getStyles().title2}>{this.props.NavigationReducer.CurrentPage}</h1>
+                      <h1  style={this.getStyles().title2}>ZweiRad</h1>
                     </div>
                   }
                   iconClassNameLeft={this.state.iconClassName} 
@@ -205,15 +205,16 @@ console.log(menuItemsLanguage)
                       {this.props.internationalReducer.activeLanguage.strings.Gesamt}
                     </Link>
                   </MenuItem>
-                  <MenuItem index={5} style={{"lineHeight":"30px" }}>
-                    <Link className={styles.NavigationSubLink} to="/auftragsplanung/damen">
-                      {this.props.internationalReducer.activeLanguage.strings.Damen}
-                    </Link>                  
-                  </MenuItem>
-                  <MenuItem index={6} style={{"lineHeight":"30px"}}>
+                  
+                  <MenuItem index={5} style={{"lineHeight":"30px"}}>
                     <Link className={styles.NavigationSubLink} to="/auftragsplanung/herren">
                       {this.props.internationalReducer.activeLanguage.strings.Herren}
                     </Link>   
+                  </MenuItem>
+                  <MenuItem index={6} style={{"lineHeight":"30px" }}>
+                    <Link className={styles.NavigationSubLink} to="/auftragsplanung/damen">
+                      {this.props.internationalReducer.activeLanguage.strings.Damen}
+                    </Link>                  
                   </MenuItem>
                   <MenuItem index={7} style={{"lineHeight":"30px"}}>
                     <Link className={styles.NavigationSubLink} to="/auftragsplanung/kinder">

@@ -432,11 +432,14 @@ class Damen extends React.Component {
 
     var currentAmount = 0;
     if (currentInputXML) {
+      if(currentInputXML.inputDataObject.results.ordersinwork[0].workplace){
+
       currentInputXML.inputDataObject.results.ordersinwork[0].workplace.forEach(function (elementWorkplace) {
         if (elementWorkplace.$.item === articleId) {
           currentAmount = parseInt(elementWorkplace.$.amount) + currentAmount
         }
       }.bind(this))
+    }
 
     }
 

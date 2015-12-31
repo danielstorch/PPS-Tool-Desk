@@ -1235,11 +1235,14 @@ class Kaufteildisposition extends React.Component {
 
     var amount = 0;
     if(currentInputXML){
+      if(currentInputXML.inputDataObject.results.futureinwardstockmovement[0].order){
+
       currentInputXML.inputDataObject.results.futureinwardstockmovement[0].order.forEach(function (element){
         if(element.$.article === articleId){
           amount = parseInt(element.$.amount) + amount
         }
       }.bind(this))
+    }
 
     }
 
@@ -1559,8 +1562,13 @@ class Kaufteildisposition extends React.Component {
       { text: 'Ok', onTouchTap: this._onDialogOk.bind(this), ref: 'ok' }
     ];
 
+        var DropDownNormallol = this.props.internationalReducer.activeLanguage.strings.DropDownNormal
+    var DropDownOptimistischlol = this.props.internationalReducer.activeLanguage.strings.DropDownOptimistisch
+    var DropDownPesimistischlol = this.props.internationalReducer.activeLanguage.strings.DropDownPessimistisch
+
+
       //Create DropDown menuitems
-    let menuItems = [{payload: '0', text: 'Normal'},{payload: '1', text: 'Optimistisch'},{payload: '2', text: 'Pesimistisch'}];
+        let menuItems = [{payload: '0', text: DropDownNormallol},{payload: '1', text: DropDownOptimistischlol},{payload: '2', text: DropDownPesimistischlol }];
 
 
     return (

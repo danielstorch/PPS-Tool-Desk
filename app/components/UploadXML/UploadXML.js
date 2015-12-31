@@ -227,7 +227,7 @@ class UploadXML extends React.Component {
               onRequestClose={this._handleRequestClose.bind(this)}>
               {this.state.dialogText}
             </Dialog>
-            <Dropzone onDrop={this._handleDrop.bind(this)} multiple={false} className="file-dropzone">
+            <Dropzone onDrop={this._handleDrop.bind(this)} multiple={false} className={styles.dropzone}>
               <span>{this.props.internationalReducer.activeLanguage.strings.DropFile}</span>
             </Dropzone>
             <Snackbar
