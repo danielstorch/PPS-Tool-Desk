@@ -182,7 +182,7 @@ console.log(menuItemsLanguage)
                       <h1  style={this.getStyles().title2}>ZweiRad</h1>
                     </div>
                   }
-                  icon={<img src={this.state.iconClassName} alt="error" />}
+                  iconClassNameLeft={styles.arrowdown} 
                   onLeftIconButtonTouchTap={this._handleClick} 
                   style={{"width":"100%" }}
                   iconStyleRight={{"marginTop": "0"}}
@@ -193,19 +193,19 @@ console.log(menuItemsLanguage)
                     </div>}/>
 
           <LeftNav ref="leftNav" docked={this.state.isDocked} style={{"top":"100% - <AppBar.height>" }}>
-              <MenuItem index={0} icon={<img src="ic_home_black_24dp_1x.png" alt="error" style={{"marginRight":"0px", "top":"10px"}}/>}>
+              <MenuItem index={0} iconClassName="MenuItem-icon-home" iconStyle={{"marginRight":"0px", "top":"10px"}}>
                 <Link className={styles.NavigationLink} to="/">
                   {this.props.internationalReducer.activeLanguage.strings.Home}
                 </Link>
               </MenuItem>
-              <MenuItem index={1} icon={<img src="ic_import_contacts_black_24dp_1x.png" alt="error"/>} iconStyle={{"marginRight":"0px", "top":"10px"}}>
+              <MenuItem index={1} iconClassName="MenuItem-icon-anleitung" iconStyle={{"marginRight":"0px", "top":"10px"}}>
                 <Link className={styles.NavigationLink} to="/anleitung">
                   {this.props.internationalReducer.activeLanguage.strings.Anleitung}
                 </Link>
               </MenuItem>
               <MenuItem index={2} className={styles.NavigationDivider}>
               </MenuItem>
-              <MenuItem index={3} icon={<img src="ic_directions_bike_black_24dp_1x.png" alt="error"/>} iconStyle={{"marginRight":"0px", "top":"10px"}}>
+              <MenuItem index={3} iconClassName="MenuItem-icon-auftragsplanung" iconStyle={{"marginRight":"0px", "top":"10px"}}>
                 <a className={styles.NavigationTitle}>{this.props.internationalReducer.activeLanguage.strings.Auftragsplanung}</a>
               </MenuItem>
                   <MenuItem index={4} style={{"lineHeight":"30px" }}>
@@ -229,23 +229,23 @@ console.log(menuItemsLanguage)
                       {this.props.internationalReducer.activeLanguage.strings.Kinder}
                     </Link> 
                   </MenuItem>
-              <MenuItem index={8} icon={<img src="ic_shopping_cart_black_24dp_1x.png" alt="error"/>} iconStyle={{"marginRight":"0px", "top":"10px"}}>
+              <MenuItem index={8} iconClassName="MenuItem-icon-kaufteildisposition" iconStyle={{"marginRight":"0px", "top":"10px"}}>
                     <Link className={styles.NavigationLink} to="/kaufteildisposition">
                       {this.props.internationalReducer.activeLanguage.strings.Kaufteildisposition}
                     </Link> 
               </MenuItem>
-              <MenuItem index={9} icon={<img src="ic_watch_later_black_24dp_1x.png" alt="error"/>}  iconStyle={{"marginRight":"0px", "top":"10px"}}>
+              <MenuItem index={9} iconClassName="MenuItem-icon-kapazitaetsplanung" iconStyle={{"marginRight":"0px", "top":"10px"}}>
                   <Link className={styles.NavigationLink} to="/kapazitaetsplanung">
                       {this.props.internationalReducer.activeLanguage.strings.Kapazitaetsplanung}
                   </Link> 
               </MenuItem>
-              <MenuItem index={10} icon={<img src="ic_file_download_black_24dp_1x.png" alt="error"/>}  iconStyle={{"marginRight":"0px", "top":"10px"}}>
+              <MenuItem index={10} iconClassName="MenuItem-icon-download" iconStyle={{"marginRight":"0px", "top":"10px"}}>
                 <Link className={styles.NavigationLink} to="/download">
                     {this.props.internationalReducer.activeLanguage.strings.Download}
                 </Link>
               </MenuItem>
-              <MenuItem index={11} icon={<img src="ic_delete_black_24dp_1x.png" alt="error"/>}  iconClassName="MenuItem-icon-delete" iconStyle={{"marginRight":"0px", "top":"10px"}}>
-                <a className={styles.NavigationLink}  onClick={this._onDeleteLocalStorage}>{this.props.internationalReducer.activeLanguage.strings.localStorageDeleteButton}</a>
+              <MenuItem index={11} iconClassName="MenuItem-icon-delete" iconStyle={{"marginRight":"0px", "top":"10px"}}>
+                  <a className={styles.NavigationLink}  onClick={this._onDeleteLocalStorage}>{this.props.internationalReducer.activeLanguage.strings.localStorageDeleteButton}</a>
               </MenuItem>
           </LeftNav>
         </div>

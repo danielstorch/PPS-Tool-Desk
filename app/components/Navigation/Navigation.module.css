@@ -3,7 +3,7 @@
 
 
 
-.AppBar-icon-close {
+/*.AppBar-icon-close {
     content: url(../../img/ic_close_white_32dp_1x.png);
     position: absolute;
     height: 100%;
@@ -64,6 +64,17 @@
 
 .MenuItem-icon-home{
     content: url(../../img/ic_home_black_24dp_1x.png);
+}
+*/
+
+
+.arrowdown {
+  width: 10; 
+  height: 10; 
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  
+  border-top: 15px solid #ff4081;
 }
 
 .currentPage {
