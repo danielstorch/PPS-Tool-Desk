@@ -3,7 +3,7 @@
 import React, { PropTypes } from 'react';
 import mui from 'material-ui';
 import { connect } from 'react-redux';
-import './Download.module.css';
+import styles from './Download.module.css';
  
 import update from 'react/lib/update';
 import Card from './Card';
@@ -12,7 +12,15 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import xml2js from 'xml2js';
 import { Link } from 'react-router';
 
-var RaisedButton = mui.RaisedButton;
+var RaisedButton = mui.RaisedButton
+  , TextField = mui.TextField
+  , Toggle = mui.Toggle
+  , TableBody = mui.TableBody
+  , TableHeader = mui.TableHeader
+  , TableRow = mui.TableRow
+  , Table = mui.Table
+  , TableHeaderColumn = mui.TableHeaderColumn
+  , TableRowColumn = mui.TableRowColumn;
 
 const style = {
   textAlign: "center"
@@ -25,8 +33,30 @@ const style = {
     this.moveCard = this.moveCard.bind(this);
     this._downloadXML = this._downloadXML.bind(this);
     this._updateVariables = this._updateVariables.bind(this);
+    this._handleAuftragMengeChange = this._handleAuftragMengeChange.bind(this);
+    this._addAuftragButton = this._addAuftragButton.bind(this);
+    this._handleSplitQuantityChange = this._handleSplitQuantityChange.bind(this);
+    this._handleSplitArticleIDChange = this._handleSplitArticleIDChange.bind(this);
+
     this.state = {
-          auftraege:[]
+          displayRowCheckbox: false,
+          fixedHeader: true,
+          fixedFooter: true,
+          stripedRows: false,
+          showRowHover: false,
+          selectable: false,
+          multiSelectable: false,
+          enableSelectAll: false,
+          deselectOnClickaway: false,
+          auftraege:[],
+          errorTextList:[],
+          errorSplitID:"",
+          errorColorSplitId:{color:'orange'},
+          errorSplitQuantity:"",
+          errorColorSplitQuantity:{color:'orange'},
+          valueSplitID:"",
+          valueSplitQuantity:"",
+          buttonDisabled: true
     };
   }
 
@@ -56,7 +86,9 @@ const style = {
               Object.keys(objHerren).forEach(function(key){
                   console.log(key, objHerren[key]);
                   if(objHerren[key] > 0){
-                    this.state.auftraege.push({id:"Herren"+key, article:key.substring(1), quantity: objHerren[key]})
+                    var tmpidHerren = "H"+key
+                    this.state.auftraege.push({id:tmpidHerren, article:key, quantity: objHerren[key], bikeType:"Herren"})
+                    this.state.errorTextList[tmpidHerren] = ''
                   }
               }.bind(this));
             }
@@ -66,7 +98,9 @@ const style = {
               Object.keys(objDamen).forEach(function(key){
                   console.log(key, objDamen[key]);
                   if(objDamen[key] > 0){
-                    this.state.auftraege.push({id:"Damen"+key, article:key.substring(1), quantity: objDamen[key]})
+                    var tmpidDamen = "D"+key
+                    this.state.auftraege.push({id:tmpidDamen, article:key, quantity: objDamen[key], bikeType:"Damen"})
+                    this.state.errorTextList[tmpidDamen] = ''
                   }
               }.bind(this));
             }
@@ -76,10 +110,14 @@ const style = {
               Object.keys(objKinder).forEach(function(key){
                   console.log(key, objKinder[key]);
                   if(objKinder[key] > 0){
-                    this.state.auftraege.push({id:"Kinder"+key, article:key.substring(1), quantity: objKinder[key]})
+                    var tmpidKinder = "K"+key
+                    this.state.auftraege.push({id:tmpidKinder, article:key, quantity: objKinder[key], bikeType:"Kinder"})
+                    this.state.errorTextList[tmpidKinder] = ''
                   }
               }.bind(this));
             }
+            console.log(this.state.auftraege)
+            console.log(this.state.errorTextList)
 
       } else {
 
@@ -90,8 +128,231 @@ const style = {
     }
 
   }
+  _handleSplitArticleIDChange(e){
+    var errorSplitIDlol = "";
+    var errorSplitIdDisabled = true
+    if(this.state.auftraege.find(auftrag => auftrag.article == e.target.value)){
+
+      if(e.target.value.substring(1) == "S"){
+        errorSplitIDlol = "Error"
+      }else{
+        console.log("SPLIT ID GEFUNDEN")
+        errorSplitIdDisabled = false
+      }
+      
+    } else{
+      errorSplitIDlol = this.props.internationalReducer.activeLanguage.strings.ExportSplitFalscheId
+    }
+
+    this.setState({
+        buttonDisabled: errorSplitIdDisabled,
+        valueSplitID: e.target.value,
+        errorColorSplitId: {color:'red'},
+        errorSplitID: errorSplitIDlol
+    });
+
+    // let value = e.target.value;
+    // let errorSplitIDlol = this.state.errorSplitID
+
+    // let isNumeric = !isNaN(parseFloat(value)) && isFinite(value);
+
+    // if(isNumeric){
+    //   errorSplitIDlol = ''
+    //   this.setState({
+    //     errorColorSplitId: {color:'orange'},
+    //     errorSplitID: errorSplitIDlol,
+    //     valueSplitID: parseInt(value)
+    //   });
+
+    // }else{
+    //   var lolvalue = this.state.valueSplitID
+    //   if(value == ""){
+    //     lolvalue = "";
+    //   }
+
+    //   errorSplitIDlol = this.props.internationalReducer.activeLanguage.strings.NumericError
+    //   this.setState({
+    //     errorColorSplitId: {color:'orange'},
+    //     errorSplitID: errorSplitIDlol,
+    //     valueSplitID: lolvalue
+    //   });
+    // }
+
+  }
+
+  _handleSplitQuantityChange(e){
+
+    console.log(e.target.value)
+    let value = e.target.value;
+    let errorSplitQuantitylol = this.state.errorSplitQuantity
+
+    let isNumeric = !isNaN(parseFloat(value)) && isFinite(value);
+
+    if(isNumeric){
+      errorSplitQuantitylol = ''
+      this.setState({
+        errorColorSplitQuantity: {color:'orange'},
+        errorSplitQuantity: errorSplitQuantitylol,
+        valueSplitQuantity: parseInt(value)
+      });
+
+    }else{
+      var lolvalue = this.state.valueSplitQuantity
+      if(value == ""){
+        lolvalue = "";
+      }
+
+      errorSplitQuantitylol = this.props.internationalReducer.activeLanguage.strings.NumericError
+      this.setState({
+        errorColorSplitQuantity: {color:'orange'},
+        errorSplitQuantity: errorSplitQuantitylol,
+        valueSplitQuantity: lolvalue
+      });
+    }
+  }
+
+  _addAuftragButton(e){
+    console.log("ButtonClicked")
+
+    console.log("this.refs.valueSplitIDREF.getValue()", this.refs.valueSplitIDREF.getValue())
+    console.log("this.refs.valueSplitQuantityREF.getValue()",this.refs.valueSplitQuantityREF.getValue())
+
+    var errorSplitQuantitylol = ""
 
 
+    if(this.state.auftraege.find(auftrag => auftrag.article == this.refs.valueSplitIDREF.getValue())){
+      console.log("SPLIT ID GEFUNDEN")
+
+      var amountGesamt = 0;
+      if(this.refs.valueSplitQuantityREF.getValue() == "" || this.refs.valueSplitQuantityREF.getValue() <= 0){
+        errorSplitQuantitylol = this.props.internationalReducer.activeLanguage.strings.ExportSplitKleinerNul
+
+        this.setState({
+          errorColorSplitQuantity: {color:'red'},
+          errorSplitQuantity: errorSplitQuantitylol
+        });
+
+      }else{
+          this.state.auftraege.forEach(function(auftrag){
+            if(auftrag.article == this.refs.valueSplitIDREF.getValue()){
+              amountGesamt = amountGesamt + auftrag.quantity
+            }
+          }.bind(this))
+
+          console.log("amountGesamt", amountGesamt)
+          console.log(parseInt(this.refs.valueSplitQuantityREF.getValue()))
+
+          console.log(amountGesamt < parseInt(this.refs.valueSplitQuantityREF.getValue()))
+
+          if(amountGesamt < parseInt(this.refs.valueSplitQuantityREF.getValue())){
+            errorSplitQuantitylol = this.props.internationalReducer.activeLanguage.strings.ExportSplitKleinerAlsGesamt
+
+            this.setState({
+              errorColorSplitQuantity: {color:'red'},
+              errorSplitQuantity: errorSplitQuantitylol
+            });
+          }else{
+              console.log("HAT FUNKTIONIERT")
+              var tmpid = "S1" + this.refs.valueSplitIDREF.getValue()
+              var error = false;
+
+              var lolanz = 1;
+              this.state.auftraege.forEach(function(auftrag){
+                  console.log("auftrag.article",auftrag.article)
+                  console.log("this.refs.valueSplitIDREF.getValue()",this.refs.valueSplitIDREF.getValue())
+                  console.log(auftrag.article == this.refs.valueSplitIDREF.getValue())
+                  if(auftrag.article == this.refs.valueSplitIDREF.getValue()){
+
+                    console.log(auftrag.id.charAt(0))
+                    if(auftrag.id.charAt(0) == "S"){
+
+                     lolanz = lolanz + 1
+
+                    }
+                  } 
+              }.bind(this))
+
+              errorSplitQuantitylol = this.props.internationalReducer.activeLanguage.strings.ExportSplitMax
+              console.log("SplitMenge", lolanz)
+              if(lolanz > 9){
+                this.setState({
+                      errorColorSplitQuantity: {color:'red'},
+                      errorSplitQuantity: errorSplitQuantitylol
+                });
+              }else{
+
+                var tmpid = "S"+ lolanz + this.refs.valueSplitIDREF.getValue()
+
+                var newListlol = this.state.auftraege
+                newListlol.push({id:tmpid, article:this.refs.valueSplitIDREF.getValue(), quantity: this.refs.valueSplitQuantityREF.getValue(), bikeType: "Split"})
+
+                var newErrorlol = this.state.errorTextList
+                newErrorlol[tmpid] = ''
+
+                this.setState({
+                  errorSplitID:"",
+                  errorColorSplitId:{color:'orange'},
+                  errorSplitQuantity:"",
+                  errorColorSplitQuantity:{color:'orange'},
+                  valueSplitID:"",
+                  valueSplitQuantity:"",
+                  buttonDisabled: true,
+                  auftraege: newListlol,
+                  errorTextList: newErrorlol
+                });
+              }
+          }
+      }
+      
+    } 
+    
+
+  }
+
+  _handleAuftragMengeChange(e){
+    console.log("menge geändert")
+
+    let errorTextListlol = this.state.errorTextList
+    let value = e.target.value;
+
+    let isNumeric = !isNaN(parseFloat(value)) && isFinite(value);
+
+    if(isNumeric){
+
+      var newList = this.state.auftraege.map(item => item.id == e.target.id ?
+                                          Object.assign({}, item, { quantity: parseInt(value) })  :  item); 
+
+      errorTextListlol[e.target.id] = ''
+
+      this.setState({
+        errorTextList: errorTextListlol,
+        auftraege: newList
+      });
+
+    }else{
+      errorTextListlol[e.target.id] = this.props.internationalReducer.activeLanguage.strings.NumericError
+
+      var lolvalue = this.state.valueSplitQuantity
+      if(value == ""){
+
+        var newList2 = this.state.auftraege.map(item => item.id == e.target.id ?
+                                          Object.assign({}, item, { quantity: 0 })  :  item); 
+
+        this.setState({
+          errorTextList: errorTextListlol,
+          auftraege: newList2
+        });
+      }else{
+        this.setState({
+          errorTextList: errorTextListlol
+        });
+      }
+
+      
+      
+    }
+
+  }
 
   _downloadXML() {
 
@@ -132,7 +393,7 @@ const style = {
             ordermodus = 4
           }
 
-          obj.orderlist.order.push({$: {article:key, quantity:objectKaufteildispositionMenge[key], modus: ordermodus}});
+          obj.orderlist.order.push({$: {article:key.substring(1), quantity:objectKaufteildispositionMenge[key], modus: ordermodus}});
         }
       }.bind(this));
     }
@@ -149,7 +410,12 @@ const style = {
 
     //Aufträge
     this.state.auftraege.forEach(function (elementStation){
-      obj.productionlist.production.push({$: {article: elementStation.article, quantity: elementStation.quantity}})
+      if(elementStation.article.charAt(0) == "S"){
+        obj.productionlist.production.push({$: {article: elementStation.article.substring(2), quantity: elementStation.quantity}})
+      }else{
+        obj.productionlist.production.push({$: {article: elementStation.article.substring(1), quantity: elementStation.quantity}})
+      }
+      
 
     }.bind(this))
 
@@ -185,26 +451,89 @@ const style = {
 
 
     return (
-      <div className="wrapperdownload">
+      <div className={styles.wrapperdownload}>
+        <h1>{this.props.internationalReducer.activeLanguage.strings.TitelExport}</h1>
+        
+        
+        
+        
 
-        <h1>Export Xml</h1>
+        <Table
+                    height={this.state.height}
+                    fixedHeader={this.state.fixedHeader}
+                    selectable={this.state.selectable}
+                    >
 
+                    <TableHeader adjustForCheckbox={this.state.displayRowCheckbox}
+                                 displaySelectAll={this.state.displayRowCheckbox}
+                                 enableSelectAll={this.state.enableSelectAll}>
+                      <TableRow selectable={this.state.selectable}>
+                        <TableHeaderColumn  style={{textAlign: 'center'}}>
+                          {this.props.internationalReducer.activeLanguage.strings.ExportSplitHeader}
+                        </TableHeaderColumn>
+                      </TableRow>
+                    </TableHeader>
+
+                    <TableBody displayRowCheckbox={this.state.displayRowCheckbox}>
+                      <TableRow>
+                        <TableRowColumn> 
+
+                          <TextField 
+                            ref="valueSplitIDREF"
+                            value={this.state.valueSplitID}
+                            errorText={this.state.errorSplitID}
+                            errorStyle={ this.state.errorColorSplitId }
+                            onChange={this._handleSplitArticleIDChange}
+                            floatingLabelText={this.props.internationalReducer.activeLanguage.strings.ExportSplitIDFloating} 
+                            hintText={this.props.internationalReducer.activeLanguage.strings.ExportSplitIDHint}/>
+
+                        </TableRowColumn>
+                        <TableRowColumn>
+
+                          <TextField 
+                            ref="valueSplitQuantityREF"
+                            value={this.state.valueSplitQuantity}
+                            errorText={this.state.errorSplitQuantity}
+                            errorStyle={ this.state.errorColorSplitQuantity }
+                            onChange={this._handleSplitQuantityChange}
+                            floatingLabelText= {this.props.internationalReducer.activeLanguage.strings.ExportSplitQuantityFloat}
+                            hintText={this.props.internationalReducer.activeLanguage.strings.ExportSplitQuantityHint} />
+
+                        </TableRowColumn>
+                        <TableRowColumn>
+                          <RaisedButton label="Split" primary={true} disabled={this.state.buttonDisabled} onTouchTap={this._addAuftragButton}/>
+                        </TableRowColumn>
+
+                      </TableRow>
+
+                    </TableBody>
+                  </Table>
+
+                  <h1> </h1>
         <div style={style}>
           {this.state.auftraege.map((auftrag, i) => {
             return (
               <Card key={auftrag.id}
                     index={i}
+                    id={auftrag.id}
                     articleId={auftrag.article}
                     menge={auftrag.quantity}
+                    handleAuftragMengeChange = {this._handleAuftragMengeChange}
+                    errorText={this.state.errorTextList[auftrag.id]}
+                    bikeType={auftrag.bikeType}
                     moveCard={this.moveCard}/>
             );
           })}
 
         </div>
-
-        <a ref="link" href='' download="input.xml" type="button" onClick={this._downloadXML}>
-          Download
-        </a>
+        <h1> </h1>
+          <div className={styles.nextButtonWrapper}>
+            <a ref="link" href='' className={styles.nextButton} download="input.xml" type="button" onClick={this._downloadXML}>
+              {this.props.internationalReducer.activeLanguage.strings.ExportDownloadButton}
+            </a>
+          </div>
+          <h1> </h1>
+        
       </div>
     );
   }

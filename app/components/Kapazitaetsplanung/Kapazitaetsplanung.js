@@ -1,5 +1,5 @@
 import React from 'react';
-import './Kapazitaetsplanung.module.css';
+import styles from './Kapazitaetsplanung.module.css';
 import mui from 'material-ui';
 import { connect } from 'react-redux';
 import { setKapazitaetsplanungInputXML, resetKapazitaetsplanungInputXML } from '../../actions/PPSToolActions';
@@ -15,12 +15,6 @@ const TableRowColumn = require('material-ui/lib/table/table-row-column');
 
 
 const TextField = require('material-ui/lib/text-field');
-
-
-var Dialog = mui.Dialog
-  , Toggle = mui.Toggle
-  , RaisedButton = mui.RaisedButton
-  , Snackbar = mui.Snackbar;
 
 
 var Dialog = mui.Dialog
@@ -127,7 +121,7 @@ class Kapazitaetsplanung extends React.Component {
         E30: 0,
         Kapazitätsbedarf: 0,
         RüstzeitVorgang: 80,
-        RüstVorgänge: 1.4,
+        RüstVorgänge: 1,
         RüstzeitGesamt: 0,
         Warteschlange: 0,
         Gesamtkapazitätbedarf: 0,
@@ -141,7 +135,7 @@ class Kapazitaetsplanung extends React.Component {
         E31: 0,
         Kapazitätsbedarf: 0,
         RüstzeitVorgang: 60,
-        RüstVorgänge: 1.67,
+        RüstVorgänge: 1,
         RüstzeitGesamt: 0,
         Warteschlange: 0,
         Gesamtkapazitätbedarf: 0,
@@ -191,7 +185,7 @@ class Kapazitaetsplanung extends React.Component {
         E26: 0,
         Kapazitätsbedarf: 0,
         RüstzeitVorgang: 200,
-        RüstVorgänge: 3,
+        RüstVorgänge: 1,
         RüstzeitGesamt: 0,
         Warteschlange: 0,
         Gesamtkapazitätbedarf: 0,
@@ -211,7 +205,7 @@ class Kapazitaetsplanung extends React.Component {
         E20: 0,
         Kapazitätsbedarf: 0,
         RüstzeitVorgang: 135,
-        RüstVorgänge: 2.67,
+        RüstVorgänge: 1,
         RüstzeitGesamt: 0,
         Warteschlange: 0,
         Gesamtkapazitätbedarf: 0,
@@ -324,7 +318,7 @@ class Kapazitaetsplanung extends React.Component {
         E26: 0,
         Kapazitätsbedarf: 0,
         RüstzeitVorgang: 30,
-        RüstVorgänge: 7,
+        RüstVorgänge: 1,
         RüstzeitGesamt: 0,
         Warteschlange: 0,
         Gesamtkapazitätbedarf: 0,
@@ -393,40 +387,95 @@ class Kapazitaetsplanung extends React.Component {
         if (currentInputXML && currentInputXML.inputDataObject.kaufteildisposition) {
           console.log('currentInputXML && currentInputXML.inputDataObject.kaufteildisposition')
 
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz1) {
+            this.state.Arbeitsplatz1.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz1.Schichten;
+          }
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz2) {
+            this.state.Arbeitsplatz2.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz2.Schichten;
+          }
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz3) {
+            this.state.Arbeitsplatz3.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz3.Schichten;
+          }
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz4) {
+            this.state.Arbeitsplatz4.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz4.Schichten;
+          }
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz6) {
+            this.state.Arbeitsplatz6.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz6.Schichten;
+          }
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz7) {
+            this.state.Arbeitsplatz7.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz7.Schichten;
+          }
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz8) {
+            this.state.Arbeitsplatz8.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz8.Schichten;
+          }
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz9) {
+            this.state.Arbeitsplatz9.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz9.Schichten;
+          }
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz10) {
+            this.state.Arbeitsplatz10.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz10.Schichten;
+          }
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz11) {
+            this.state.Arbeitsplatz11.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz11.Schichten;
+          }
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz12) {
+            this.state.Arbeitsplatz12.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz12.Schichten;
+          }
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz13) {
+            this.state.Arbeitsplatz13.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz13.Schichten;
+          }
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz14) {
+            this.state.Arbeitsplatz14.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz14.Schichten;
+          }
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz15) {
+            this.state.Arbeitsplatz15.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz15.Schichten;
+          }
 
-          this.state.Arbeitsplatz1.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz1.Schichten;
-          this.state.Arbeitsplatz2.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz2.Schichten;
-          this.state.Arbeitsplatz3.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz3.Schichten;
-          this.state.Arbeitsplatz4.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz4.Schichten;
-          this.state.Arbeitsplatz6.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz6.Schichten;
-          this.state.Arbeitsplatz7.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz7.Schichten;
-          this.state.Arbeitsplatz8.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz8.Schichten;
-          this.state.Arbeitsplatz9.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz9.Schichten;
-          this.state.Arbeitsplatz10.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz10.Schichten;
-          this.state.Arbeitsplatz11.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz11.Schichten;
-          this.state.Arbeitsplatz12.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz12.Schichten;
-          this.state.Arbeitsplatz13.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz13.Schichten;
-          this.state.Arbeitsplatz14.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz14.Schichten;
-          this.state.Arbeitsplatz15.Schichten = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz15.Schichten;
-
-          this.state.Arbeitsplatz1.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz1.Überstunden;
-          this.state.Arbeitsplatz2.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz2.Überstunden;
-          this.state.Arbeitsplatz3.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz3.Überstunden;
-          this.state.Arbeitsplatz4.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz4.Überstunden;
-          this.state.Arbeitsplatz6.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz6.Überstunden;
-          this.state.Arbeitsplatz7.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz7.Überstunden;
-          this.state.Arbeitsplatz8.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz8.Überstunden;
-          this.state.Arbeitsplatz9.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz9.Überstunden;
-          this.state.Arbeitsplatz10.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz10.Überstunden;
-          this.state.Arbeitsplatz11.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz11.Überstunden;
-          this.state.Arbeitsplatz12.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz12.Überstunden;
-          this.state.Arbeitsplatz13.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz13.Überstunden;
-          this.state.Arbeitsplatz14.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz14.Überstunden;
-          this.state.Arbeitsplatz15.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz15.Überstunden;
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz1) {
+            this.state.Arbeitsplatz1.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz1.Überstunden;
+          }
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz2) {
+            this.state.Arbeitsplatz2.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz2.Überstunden;
+          }
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz3) {
+            this.state.Arbeitsplatz3.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz3.Überstunden;
+          }
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz4) {
+            this.state.Arbeitsplatz4.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz4.Überstunden;
+          }
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz6) {
+            this.state.Arbeitsplatz6.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz6.Überstunden;
+          }
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz7) {
+            this.state.Arbeitsplatz7.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz7.Überstunden;
+          }
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz8) {
+            this.state.Arbeitsplatz8.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz8.Überstunden;
+          }
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz9) {
+            this.state.Arbeitsplatz9.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz9.Überstunden;
+          }
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz10) {
+            this.state.Arbeitsplatz10.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz10.Überstunden;
+          }
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz11) {
+            this.state.Arbeitsplatz11.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz11.Überstunden;
+          }
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz12) {
+            this.state.Arbeitsplatz12.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz12.Überstunden;
+          }
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz13) {
+            this.state.Arbeitsplatz13.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz13.Überstunden;
+          }
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz14) {
+            this.state.Arbeitsplatz14.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz14.Überstunden;
+          }
+          if (currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz15) {
+            this.state.Arbeitsplatz15.Überstunden = currentInputXML.inputDataObject.kaufteildisposition.Arbeitsplatz15.Überstunden;
+          }
 
           this.state.resetButtonDisabled = false
 
-        } else {
+        } if(currentInputXML.inputDataObject) {
           console.log('schauen ob Herren Damen Kinder vorhanden')
           this.state.resetButtonDisabled = true
 
@@ -459,6 +508,7 @@ class Kapazitaetsplanung extends React.Component {
 
           }
           if (currentInputXML.inputDataObject.auftragsplanungDamen) {
+            console.log('werden die Damen richtig abgefragt?')
             this.state.Auftragsmenge.P2 = currentInputXML.inputDataObject.auftragsplanungDamen.AU.P2;
             this.state.Auftragsmenge.DE26 = currentInputXML.inputDataObject.auftragsplanungDamen.AU.E26;
             this.state.Auftragsmenge.E56 = currentInputXML.inputDataObject.auftragsplanungDamen.AU.E56;
@@ -516,7 +566,8 @@ class Kapazitaetsplanung extends React.Component {
             this.state.Auftragsmenge.E15 = 0;
             this.state.Auftragsmenge.E20 = 0;
           }
-          if(currentInputXML.inputDataObject.kapazitaetsplanung){
+          if (currentInputXML.inputDataObject.kapazitaetsplanung) {
+            console.log('currentInputXML.inputDataObject.kapazitaetsplanung')
             this.state.Arbeitsplatz1.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz1.Schichten;
             this.state.Arbeitsplatz2.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz2.Schichten;
             this.state.Arbeitsplatz3.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz3.Schichten;
@@ -552,19 +603,26 @@ class Kapazitaetsplanung extends React.Component {
           } else {
             console.log('Werte müssen berechnet werden')
             //1
+            console.log('Bedarf ' + this.state.Arbeitsplatz1.Gesamtkapazitätbedarf)
             if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 2400) {
+              console.log('1 Schicht')
               this.state.Arbeitsplatz1.Schichten = 1
             } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 3599) {
+              console.log('1 Schicht mit ÜS')
               this.state.Arbeitsplatz1.Schichten = 1
               this.state.Arbeitsplatz1.Überstunden = (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf - 2400) / 5;
             } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 4800) {
+              console.log('2 Schicht')
               this.state.Arbeitsplatz1.Schichten = 2
             } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 6000) {
+              console.log('2 Schicht mit ÜS')
               this.state.Arbeitsplatz1.Schichten = 2
               this.state.Arbeitsplatz1.Überstunden = (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf - 4800) / 5;
             } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 7200) {
+              console.log('3 Schicht')
               this.state.Arbeitsplatz1.Schichten = 3
             } else {
+              console.log('Fehler')
               //Fehlermeldung
             }
 
@@ -791,7 +849,6 @@ class Kapazitaetsplanung extends React.Component {
           }
 
 
-
           this.state.resetButtonDisabled = false
 
         }
@@ -850,15 +907,14 @@ class Kapazitaetsplanung extends React.Component {
       console.log('current Periode setzen')
 
 
-
     }
 
     console.log('rechnen')
 
 
-    this.state.Auftragsmenge.E16 = this.state.Auftragsmenge.KE16 + this.state.Auftragsmenge.HE16 + this.state.Auftragsmenge.HE16;
-    this.state.Auftragsmenge.E17 = this.state.Auftragsmenge.KE17 + this.state.Auftragsmenge.HE17 + this.state.Auftragsmenge.HE17;
-    this.state.Auftragsmenge.E26 = this.state.Auftragsmenge.KE26 + this.state.Auftragsmenge.HE26 + this.state.Auftragsmenge.HE26;
+    this.state.Auftragsmenge.E16 = this.state.Auftragsmenge.KE16 + this.state.Auftragsmenge.HE16 + this.state.Auftragsmenge.DE16;
+    this.state.Auftragsmenge.E17 = this.state.Auftragsmenge.KE17 + this.state.Auftragsmenge.HE17 + this.state.Auftragsmenge.DE17;
+    this.state.Auftragsmenge.E26 = this.state.Auftragsmenge.KE26 + this.state.Auftragsmenge.HE26 + this.state.Auftragsmenge.DE26;
 
     this.state.Arbeitsplatz1.E49 = 6 * this.state.Auftragsmenge.E49;
     this.state.Arbeitsplatz1.E54 = 6 * this.state.Auftragsmenge.E54;
@@ -1009,6 +1065,329 @@ class Kapazitaetsplanung extends React.Component {
     this.state.Arbeitsplatz14.Gesamtkapazitätbedarf = this.state.Arbeitsplatz14.Kapazitätsbedarf + this.state.Arbeitsplatz14.RüstzeitGesamt + this.state.Arbeitsplatz14.Warteschlange;
     this.state.Arbeitsplatz15.Gesamtkapazitätbedarf = this.state.Arbeitsplatz15.Kapazitätsbedarf + this.state.Arbeitsplatz15.RüstzeitGesamt + this.state.Arbeitsplatz15.Warteschlange;
 
+    if(currentInputXML && !currentInputXML.inputDataObject.kapazitaetsplanung){
+      console.log('schichten nochmal berechnen')
+      if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 2400) {
+        console.log('1 Schicht')
+        this.state.Arbeitsplatz1.Schichten = 1
+      } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 3599) {
+        console.log('1 Schicht mit ÜS')
+        this.state.Arbeitsplatz1.Schichten = 1
+        this.state.Arbeitsplatz1.Überstunden = Math.ceil((this.state.Arbeitsplatz1.Gesamtkapazitätbedarf - 2400) / 5);
+      } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 4800) {
+        console.log('2 Schicht')
+        this.state.Arbeitsplatz1.Schichten = 2
+      } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 6000) {
+        console.log('2 Schicht mit ÜS')
+        this.state.Arbeitsplatz1.Schichten = 2
+        this.state.Arbeitsplatz1.Überstunden = Math.ceil((this.state.Arbeitsplatz1.Gesamtkapazitätbedarf - 4800) / 5);
+      } else if (this.state.Arbeitsplatz1.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz1.Gesamtkapazitätbedarf < 7200) {
+        console.log('3 Schicht')
+        this.state.Arbeitsplatz1.Schichten = 3
+      } else {
+        console.log('Fehler')
+        this.state.Arbeitsplatz1.Schichten = 3
+        this.state.Arbeitsplatz1.Überstunden = 0;
+
+      }
+
+      //2
+      if (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf < 2400) {
+        this.state.Arbeitsplatz2.Schichten = 1
+      } else if (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz2.Gesamtkapazitätbedarf < 3599) {
+        this.state.Arbeitsplatz2.Schichten = 1
+        this.state.Arbeitsplatz2.Überstunden = Math.ceil((this.state.Arbeitsplatz2.Gesamtkapazitätbedarf - 2400) / 5);
+      } else if (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz2.Gesamtkapazitätbedarf < 4800) {
+        this.state.Arbeitsplatz2.Schichten = 2
+      } else if (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz2.Gesamtkapazitätbedarf < 6000) {
+        this.state.Arbeitsplatz2.Schichten = 2
+        console.log('runden')
+        this.state.Arbeitsplatz2.Überstunden = Math.ceil((this.state.Arbeitsplatz2.Gesamtkapazitätbedarf - 4800) / 5);
+      } else if (this.state.Arbeitsplatz2.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz2.Gesamtkapazitätbedarf < 7200) {
+        this.state.Arbeitsplatz2.Schichten = 3
+      } else {
+        this.state.Arbeitsplatz2.Schichten = 3
+        this.state.Arbeitsplatz2.Überstunden = 0;
+
+      }
+
+      //3
+      if (this.state.Arbeitsplatz3.Gesamtkapazitätbedarf < 2400) {
+        this.state.Arbeitsplatz3.Schichten = 1
+      } else if (this.state.Arbeitsplatz3.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz3.Gesamtkapazitätbedarf < 3599) {
+        this.state.Arbeitsplatz3.Schichten = 1
+        this.state.Arbeitsplatz3.Überstunden = Math.ceil((this.state.Arbeitsplatz3.Gesamtkapazitätbedarf - 2400) / 5);
+      } else if (this.state.Arbeitsplatz3.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz3.Gesamtkapazitätbedarf < 4800) {
+        this.state.Arbeitsplatz3.Schichten = 2
+      } else if (this.state.Arbeitsplatz3.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz3.Gesamtkapazitätbedarf < 6000) {
+        this.state.Arbeitsplatz3.Schichten = 2
+        this.state.Arbeitsplatz3.Überstunden = Math.ceil((this.state.Arbeitsplatz3.Gesamtkapazitätbedarf - 4800) / 5);
+      } else if (this.state.Arbeitsplatz3.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz3.Gesamtkapazitätbedarf < 7200) {
+        this.state.Arbeitsplatz3.Schichten = 3
+      } else {
+        this.state.Arbeitsplatz3.Schichten = 3
+        this.state.Arbeitsplatz3.Überstunden = 0;
+
+
+      }
+
+      //4
+      if (this.state.Arbeitsplatz4.Gesamtkapazitätbedarf < 2400) {
+        this.state.Arbeitsplatz4.Schichten = 1
+      } else if (this.state.Arbeitsplatz4.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz4.Gesamtkapazitätbedarf < 3599) {
+        this.state.Arbeitsplatz4.Schichten = 1
+        this.state.Arbeitsplatz4.Überstunden = Math.ceil((this.state.Arbeitsplatz4.Gesamtkapazitätbedarf - 2400) / 5);
+      } else if (this.state.Arbeitsplatz4.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz4.Gesamtkapazitätbedarf < 4800) {
+        this.state.Arbeitsplatz4.Schichten = 2
+      } else if (this.state.Arbeitsplatz4.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz4.Gesamtkapazitätbedarf < 6000) {
+        this.state.Arbeitsplatz4.Schichten = 2
+        this.state.Arbeitsplatz4.Überstunden = Math.ceil((this.state.Arbeitsplatz4.Gesamtkapazitätbedarf - 4800) / 5);
+      } else if (this.state.Arbeitsplatz4.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz4.Gesamtkapazitätbedarf < 7200) {
+        this.state.Arbeitsplatz4.Schichten = 3
+      } else {
+        this.state.Arbeitsplatz4.Schichten = 3
+        this.state.Arbeitsplatz4.Überstunden = 0;
+
+      }
+
+      //6
+      if (this.state.Arbeitsplatz6.Gesamtkapazitätbedarf < 2400) {
+        this.state.Arbeitsplatz6.Schichten = 1
+      } else if (this.state.Arbeitsplatz6.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz6.Gesamtkapazitätbedarf < 3599) {
+        this.state.Arbeitsplatz6.Schichten = 1
+        this.state.Arbeitsplatz6.Überstunden = Math.ceil((this.state.Arbeitsplatz6.Gesamtkapazitätbedarf - 2400) / 5);
+      } else if (this.state.Arbeitsplatz6.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz6.Gesamtkapazitätbedarf < 4800) {
+        this.state.Arbeitsplatz6.Schichten = 2
+      } else if (this.state.Arbeitsplatz6.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz6.Gesamtkapazitätbedarf < 6000) {
+        this.state.Arbeitsplatz6.Schichten = 2
+        this.state.Arbeitsplatz6.Überstunden = Math.ceil((this.state.Arbeitsplatz6.Gesamtkapazitätbedarf - 4800) / 5);
+      } else if (this.state.Arbeitsplatz6.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz6.Gesamtkapazitätbedarf < 7200) {
+        this.state.Arbeitsplatz6.Schichten = 3
+      } else {
+        this.state.Arbeitsplatz6.Schichten = 3
+        this.state.Arbeitsplatz6.Überstunden = 0;
+
+      }
+
+      //7
+      if (this.state.Arbeitsplatz7.Gesamtkapazitätbedarf < 2400) {
+        this.state.Arbeitsplatz7.Schichten = 1
+      } else if (this.state.Arbeitsplatz7.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz7.Gesamtkapazitätbedarf < 3599) {
+        this.state.Arbeitsplatz7.Schichten = 1
+        this.state.Arbeitsplatz7.Überstunden = Math.ceil((this.state.Arbeitsplatz7.Gesamtkapazitätbedarf - 2400) / 5);
+      } else if (this.state.Arbeitsplatz7.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz7.Gesamtkapazitätbedarf < 4800) {
+        this.state.Arbeitsplatz7.Schichten = 2
+      } else if (this.state.Arbeitsplatz7.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz7.Gesamtkapazitätbedarf < 6000) {
+        this.state.Arbeitsplatz7.Schichten = 2
+        this.state.Arbeitsplatz7.Überstunden = Math.ceil((this.state.Arbeitsplatz7.Gesamtkapazitätbedarf - 4800) / 5);
+      } else if (this.state.Arbeitsplatz7.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz7.Gesamtkapazitätbedarf < 7200) {
+        this.state.Arbeitsplatz7.Schichten = 3
+      } else {
+        this.state.Arbeitsplatz7.Schichten = 3
+        this.state.Arbeitsplatz7.Überstunden = 0;
+
+      }
+
+      //8
+      if (this.state.Arbeitsplatz8.Gesamtkapazitätbedarf < 2400) {
+        this.state.Arbeitsplatz8.Schichten = 1
+      } else if (this.state.Arbeitsplatz8.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz8.Gesamtkapazitätbedarf < 3599) {
+        this.state.Arbeitsplatz8.Schichten = 1
+        this.state.Arbeitsplatz8.Überstunden = Math.ceil((this.state.Arbeitsplatz8.Gesamtkapazitätbedarf - 2400) / 5);
+      } else if (this.state.Arbeitsplatz8.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz8.Gesamtkapazitätbedarf < 4800) {
+        this.state.Arbeitsplatz8.Schichten = 2
+      } else if (this.state.Arbeitsplatz8.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz8.Gesamtkapazitätbedarf < 6000) {
+        this.state.Arbeitsplatz8.Schichten = 2
+        this.state.Arbeitsplatz8.Überstunden = Math.ceil((this.state.Arbeitsplatz8.Gesamtkapazitätbedarf - 4800) / 5);
+      } else if (this.state.Arbeitsplatz8.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz8.Gesamtkapazitätbedarf < 7200) {
+        this.state.Arbeitsplatz8.Schichten = 3
+      } else {
+        this.state.Arbeitsplatz8.Schichten = 3
+        this.state.Arbeitsplatz8.Überstunden = 0;
+
+      }
+
+      //9
+      if (this.state.Arbeitsplatz9.Gesamtkapazitätbedarf < 2400) {
+        this.state.Arbeitsplatz9.Schichten = 1
+      } else if (this.state.Arbeitsplatz9.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz9.Gesamtkapazitätbedarf < 3599) {
+        this.state.Arbeitsplatz9.Schichten = 1
+        this.state.Arbeitsplatz9.Überstunden = Math.ceil((this.state.Arbeitsplatz9.Gesamtkapazitätbedarf - 2400) / 5);
+      } else if (this.state.Arbeitsplatz9.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz9.Gesamtkapazitätbedarf < 4800) {
+        this.state.Arbeitsplatz9.Schichten = 2
+      } else if (this.state.Arbeitsplatz9.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz9.Gesamtkapazitätbedarf < 6000) {
+        this.state.Arbeitsplatz9.Schichten = 2
+        this.state.Arbeitsplatz9.Überstunden = Math.ceil((this.state.Arbeitsplatz9.Gesamtkapazitätbedarf - 4800) / 5);
+      } else if (this.state.Arbeitsplatz9.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz9.Gesamtkapazitätbedarf < 7200) {
+        this.state.Arbeitsplatz9.Schichten = 3
+      } else {
+        this.state.Arbeitsplatz9.Schichten = 3
+        this.state.Arbeitsplatz9.Überstunden = 0;
+
+      }
+
+      //10
+      if (this.state.Arbeitsplatz10.Gesamtkapazitätbedarf < 2400) {
+        this.state.Arbeitsplatz10.Schichten = 1
+      } else if (this.state.Arbeitsplatz10.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz10.Gesamtkapazitätbedarf < 3599) {
+        this.state.Arbeitsplatz10.Schichten = 1
+        this.state.Arbeitsplatz10.Überstunden = Math.ceil((this.state.Arbeitsplatz10.Gesamtkapazitätbedarf - 2400) / 5);
+      } else if (this.state.Arbeitsplatz10.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz10.Gesamtkapazitätbedarf < 4800) {
+        this.state.Arbeitsplatz10.Schichten = 2
+      } else if (this.state.Arbeitsplatz10.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz10.Gesamtkapazitätbedarf < 6000) {
+        this.state.Arbeitsplatz10.Schichten = 2
+        this.state.Arbeitsplatz10.Überstunden = Math.ceil((this.state.Arbeitsplatz10.Gesamtkapazitätbedarf - 4800) / 5);
+      } else if (this.state.Arbeitsplatz10.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz10.Gesamtkapazitätbedarf < 7200) {
+        this.state.Arbeitsplatz10.Schichten = 3
+      } else {
+        this.state.Arbeitsplatz10.Schichten = 3
+        this.state.Arbeitsplatz10.Überstunden = 0;
+
+      }
+
+      //11
+      if (this.state.Arbeitsplatz11.Gesamtkapazitätbedarf < 2400) {
+        this.state.Arbeitsplatz11.Schichten = 1
+      } else if (this.state.Arbeitsplatz11.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz11.Gesamtkapazitätbedarf < 3599) {
+        this.state.Arbeitsplatz11.Schichten = 1
+        this.state.Arbeitsplatz11.Überstunden = Math.ceil((this.state.Arbeitsplatz11.Gesamtkapazitätbedarf - 2400) / 5);
+      } else if (this.state.Arbeitsplatz11.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz11.Gesamtkapazitätbedarf < 4800) {
+        this.state.Arbeitsplatz11.Schichten = 2
+      } else if (this.state.Arbeitsplatz11.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz11.Gesamtkapazitätbedarf < 6000) {
+        this.state.Arbeitsplatz11.Schichten = 2
+        this.state.Arbeitsplatz11.Überstunden = Math.ceil((this.state.Arbeitsplatz11.Gesamtkapazitätbedarf - 4800) / 5);
+      } else if (this.state.Arbeitsplatz11.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz11.Gesamtkapazitätbedarf < 7200) {
+        this.state.Arbeitsplatz11.Schichten = 3
+      } else {
+        this.state.Arbeitsplatz11.Schichten = 3
+        this.state.Arbeitsplatz11.Überstunden = 0;
+
+      }
+
+      //12
+      if (this.state.Arbeitsplatz12.Gesamtkapazitätbedarf < 2400) {
+        this.state.Arbeitsplatz12.Schichten = 1
+      } else if (this.state.Arbeitsplatz12.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz12.Gesamtkapazitätbedarf < 3599) {
+        this.state.Arbeitsplatz12.Schichten = 1
+        this.state.Arbeitsplatz12.Überstunden = Math.ceil((this.state.Arbeitsplatz12.Gesamtkapazitätbedarf - 2400) / 5);
+      } else if (this.state.Arbeitsplatz12.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz12.Gesamtkapazitätbedarf < 4800) {
+        this.state.Arbeitsplatz12.Schichten = 2
+      } else if (this.state.Arbeitsplatz12.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz12.Gesamtkapazitätbedarf < 6000) {
+        this.state.Arbeitsplatz12.Schichten = 2
+        this.state.Arbeitsplatz12.Überstunden = Math.ceil((this.state.Arbeitsplatz12.Gesamtkapazitätbedarf - 4800) / 5);
+      } else if (this.state.Arbeitsplatz12.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz12.Gesamtkapazitätbedarf < 7200) {
+        this.state.Arbeitsplatz12.Schichten = 3
+      } else {
+        this.state.Arbeitsplatz12.Schichten = 3
+        this.state.Arbeitsplatz12.Überstunden = 0;
+
+      }
+
+      //13
+      if (this.state.Arbeitsplatz13.Gesamtkapazitätbedarf < 2400) {
+        this.state.Arbeitsplatz13.Schichten = 1
+      } else if (this.state.Arbeitsplatz13.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz13.Gesamtkapazitätbedarf < 3599) {
+        this.state.Arbeitsplatz13.Schichten = 1
+        this.state.Arbeitsplatz13.Überstunden = Math.ceil((this.state.Arbeitsplatz13.Gesamtkapazitätbedarf - 2400) / 5);
+      } else if (this.state.Arbeitsplatz13.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz13.Gesamtkapazitätbedarf < 4800) {
+        this.state.Arbeitsplatz13.Schichten = 2
+      } else if (this.state.Arbeitsplatz13.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz13.Gesamtkapazitätbedarf < 6000) {
+        this.state.Arbeitsplatz13.Schichten = 2
+        this.state.Arbeitsplatz13.Überstunden = Math.ceil((this.state.Arbeitsplatz13.Gesamtkapazitätbedarf - 4800) / 5);
+      } else if (this.state.Arbeitsplatz13.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz13.Gesamtkapazitätbedarf < 7200) {
+        this.state.Arbeitsplatz13.Schichten = 3
+      } else {
+        this.state.Arbeitsplatz13.Schichten = 3
+        this.state.Arbeitsplatz13.Überstunden = 0;
+
+      }
+
+      //14
+      if (this.state.Arbeitsplatz14.Gesamtkapazitätbedarf < 2400) {
+        this.state.Arbeitsplatz14.Schichten = 1
+      } else if (this.state.Arbeitsplatz14.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz14.Gesamtkapazitätbedarf < 3599) {
+        this.state.Arbeitsplatz14.Schichten = 1
+        this.state.Arbeitsplatz14.Überstunden = Math.ceil((this.state.Arbeitsplatz14.Gesamtkapazitätbedarf - 2400) / 5);
+      } else if (this.state.Arbeitsplatz14.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz14.Gesamtkapazitätbedarf < 4800) {
+        this.state.Arbeitsplatz14.Schichten = 2
+      } else if (this.state.Arbeitsplatz14.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz14.Gesamtkapazitätbedarf < 6000) {
+        this.state.Arbeitsplatz14.Schichten = 2
+        this.state.Arbeitsplatz14.Überstunden = Math.ceil((this.state.Arbeitsplatz14.Gesamtkapazitätbedarf - 4800) / 5);
+      } else if (this.state.Arbeitsplatz14.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz14.Gesamtkapazitätbedarf < 7200) {
+        this.state.Arbeitsplatz14.Schichten = 3
+      } else {
+        this.state.Arbeitsplatz14.Schichten = 3
+        this.state.Arbeitsplatz14.Überstunden = 0;
+
+
+      }
+
+      //15
+      if (this.state.Arbeitsplatz15.Gesamtkapazitätbedarf < 2400) {
+        this.state.Arbeitsplatz15.Schichten = 1
+      } else if (this.state.Arbeitsplatz15.Gesamtkapazitätbedarf > 2401 && this.state.Arbeitsplatz15.Gesamtkapazitätbedarf < 3599) {
+        this.state.Arbeitsplatz15.Schichten = 1
+        this.state.Arbeitsplatz15.Überstunden = Math.ceil((this.state.Arbeitsplatz15.Gesamtkapazitätbedarf - 2400) / 5);
+      } else if (this.state.Arbeitsplatz15.Gesamtkapazitätbedarf > 3600 && this.state.Arbeitsplatz15.Gesamtkapazitätbedarf < 4800) {
+        this.state.Arbeitsplatz15.Schichten = 2
+      } else if (this.state.Arbeitsplatz15.Gesamtkapazitätbedarf > 4801 && this.state.Arbeitsplatz15.Gesamtkapazitätbedarf < 6000) {
+        this.state.Arbeitsplatz15.Schichten = 2
+        this.state.Arbeitsplatz15.Überstunden = Math.ceil((this.state.Arbeitsplatz15.Gesamtkapazitätbedarf - 4800) / 5);
+      } else if (this.state.Arbeitsplatz15.Gesamtkapazitätbedarf > 6001 && this.state.Arbeitsplatz15.Gesamtkapazitätbedarf < 7200) {
+        this.state.Arbeitsplatz15.Schichten = 3
+      } else {
+        this.state.Arbeitsplatz15.Schichten = 3
+        this.state.Arbeitsplatz15.Überstunden = 0;
+
+      }
+    } else {
+      if(currentInputXML){
+        this.state.Arbeitsplatz1.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz1.Schichten;
+      this.state.Arbeitsplatz1.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz1.Überstunden;
+
+      this.state.Arbeitsplatz2.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz2.Schichten;
+      this.state.Arbeitsplatz2.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz2.Überstunden;
+
+      this.state.Arbeitsplatz3.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz3.Schichten;
+      this.state.Arbeitsplatz3.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz3.Überstunden;
+
+      this.state.Arbeitsplatz4.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz4.Schichten;
+      this.state.Arbeitsplatz4.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz4.Überstunden;
+
+      this.state.Arbeitsplatz6.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz6.Schichten;
+      this.state.Arbeitsplatz6.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz6.Überstunden;
+
+      this.state.Arbeitsplatz7.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz7.Schichten;
+      this.state.Arbeitsplatz7.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz7.Überstunden;
+
+      this.state.Arbeitsplatz8.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz8.Schichten;
+      this.state.Arbeitsplatz8.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz8.Überstunden;
+
+      this.state.Arbeitsplatz9.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz9.Schichten;
+      this.state.Arbeitsplatz9.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz9.Überstunden;
+
+      this.state.Arbeitsplatz10.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz10.Schichten;
+      this.state.Arbeitsplatz10.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz10.Überstunden;
+
+      this.state.Arbeitsplatz11.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz11.Schichten;
+      this.state.Arbeitsplatz11.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz11.Überstunden;
+
+      this.state.Arbeitsplatz12.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz12.Schichten;
+      this.state.Arbeitsplatz12.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz12.Überstunden;
+
+      this.state.Arbeitsplatz13.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz13.Schichten;
+      this.state.Arbeitsplatz13.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz13.Überstunden;
+
+      this.state.Arbeitsplatz14.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz14.Schichten;
+      this.state.Arbeitsplatz14.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz14.Überstunden;
+
+      this.state.Arbeitsplatz15.Schichten = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz15.Schichten;
+      this.state.Arbeitsplatz15.Überstunden = currentInputXML.inputDataObject.kapazitaetsplanung.Arbeitsplatz15.Überstunden;
+
+
+      console.log('schichten nicht nochmal berechnen')
+      }
+    }
 
   }
 
@@ -1037,6 +1416,12 @@ class Kapazitaetsplanung extends React.Component {
           errorlol = true;
         }
       }.bind(this));
+
+//      Object.keys(this.state.errorTextGL).forEach(function(key) {
+//        if(this.state.errorTextGL[key] !== ''){
+//          errorlol = true;
+//        }
+//      }.bind(this));
 
 
       if (!errorlol) {
@@ -1088,21 +1473,17 @@ class Kapazitaetsplanung extends React.Component {
     });
   }
 
-  _getWaitingslistworkstation(workstationId){
+  _getWaitingslistworkstation(workstationId) {
     var workplaceNumber = workstationId.substring(12);
-    console.log('workstationId ' + workstationId)
-    console.log('workplaceNumber ' + workplaceNumber)
     var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
     var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
 
     var currentAmount = 0;
-    if(currentInputXML){
-      currentInputXML.inputDataObject.results.waitinglistworkstations[0].workplace.forEach(function (elementStation){
-       if(workplaceNumber == elementStation.$.id) {
-         console.log('elementStation.$.id ' + elementStation.$.id)
-         console.log('timeneed ' + elementStation.$.timeneed);
-         this.state[workstationId].Warteschlange = parseInt(elementStation.$.timeneed);
-       }
+    if (currentInputXML) {
+      currentInputXML.inputDataObject.results.waitinglistworkstations[0].workplace.forEach(function (elementStation) {
+        if (workplaceNumber == elementStation.$.id) {
+          this.state[workstationId].Warteschlange = parseInt(elementStation.$.timeneed);
+        }
       }.bind(this))
 
     }
@@ -1111,7 +1492,7 @@ class Kapazitaetsplanung extends React.Component {
     return currentAmount
   }
 
-  _handleResetButtonClick(e){
+  _handleResetButtonClick(e) {
     this.props.dispatch(resetKapazitaetsplanungInputXML(this.props.ActiveUploadXML.activeUploadXMLData.id))
 
     console.log('MINUTE DAVOR' + this.state.Arbeitsplatz1.Überstunden);
@@ -1388,7 +1769,7 @@ class Kapazitaetsplanung extends React.Component {
     let isNumeric = !isNaN(parseFloat(value)) && isFinite(value);
 
     if (isNumeric) {
-      if(value > 3){
+      if (value > 3) {
         console.log('bigger than 3 ');
         errorTextList[arbeitsplatzId] = this.props.internationalReducer.activeLanguage.strings.ErrorKleinerDrei
       } else {
@@ -1422,7 +1803,7 @@ class Kapazitaetsplanung extends React.Component {
     if (isNumeric) {
       console.log('isNumeric ');
       errorTextList[arbeitsplatzId] = ''
-    }else {
+    } else {
       console.log('is not Numeric ');
       errorTextList[arbeitsplatzId] = this.props.internationalReducer.activeLanguage.strings.NumericError
       value = 0
@@ -1445,7 +1826,7 @@ class Kapazitaetsplanung extends React.Component {
   render() {
 
     let standardActions = [
-      { text: 'Ok', onTouchTap: this._onDialogOk.bind(this), ref: 'ok' }
+      {text: 'Ok', onTouchTap: this._onDialogOk.bind(this), ref: 'ok'}
     ];
 
     return (
@@ -1453,8 +1834,10 @@ class Kapazitaetsplanung extends React.Component {
         <div>
           <h1>{this.props.internationalReducer.activeLanguage.strings.Kapazitaetsplanung}</h1>
 
-          <RaisedButton label={this.props.internationalReducer.activeLanguage.strings.Speichern} primary={true} onTouchTap={this._handleSaveButtonClick}/>
-          <RaisedButton label={this.props.internationalReducer.activeLanguage.strings.Reset} secondary={true} disabled={this.state.resetButtonDisabled}
+          <RaisedButton label={this.props.internationalReducer.activeLanguage.strings.Speichern} primary={true}
+                        onTouchTap={this._handleSaveButtonClick}/>
+          <RaisedButton label={this.props.internationalReducer.activeLanguage.strings.Reset} secondary={true}
+                        disabled={this.state.resetButtonDisabled}
                         onTouchTap={this._handleResetButtonClick}/>
           <Toggle
             style={{"display": "inline-block", "width":"10%", "marginLeft":"10px", "paddingTop":"5px"}}
@@ -1463,21 +1846,18 @@ class Kapazitaetsplanung extends React.Component {
             onToggle={this._handleDetailModeChange}
             defaultToggled={this.state.detailMode}/>
 
-
-          <div className="navigationButtons">
-          <div className="beforeButtonWrapper" >
-            <Link className="beforeButton" to="/auftragsplanung/kinder">
-                  {this.props.internationalReducer.activeLanguage.strings.Back}
-            </Link>
+          <div className={styles.navigationButtons}>
+            <div className={styles.beforeButtonWrapper} >
+              <Link className={styles.beforeButton}to="/auftragsplanung/kinder">
+                    {this.props.internationalReducer.activeLanguage.strings.Back}
+              </Link>
+            </div>
+            <div className={styles.nextButtonWrapper}>
+              <Link className={styles.nextButton} to="/kaufteildisposition">
+                      {this.props.internationalReducer.activeLanguage.strings.Next}
+              </Link>
+            </div>
           </div>
-          <div className="nextButtonWrapper">
-          <Link className="nextButton" to="/kaufteildisposition">
-                  {this.props.internationalReducer.activeLanguage.strings.Next}
-          </Link>
-          </div>
-        </div>
-
-
         </div>
 
         { this.state.detailMode ?
@@ -3100,7 +3480,7 @@ class Kapazitaetsplanung extends React.Component {
                 //Rüstungsvorgänge
                 <TableRow>
                   <TableRowColumn colSpan="4" style={{textAlign: 'center'}}>
-                      {this.props.internationalReducer.activeLanguage.strings.RüstVorgänge}
+                    {this.props.internationalReducer.activeLanguage.strings.RüstVorgänge}
                   </TableRowColumn>
                   <TableRowColumn>
                     {this.state.Arbeitsplatz1.RüstVorgänge}
@@ -3151,7 +3531,7 @@ class Kapazitaetsplanung extends React.Component {
                 //Rüstzeit Gesamt
                 <TableRow>
                   <TableRowColumn colSpan="4" style={{textAlign: 'center'}}>
-                      {this.props.internationalReducer.activeLanguage.strings.RüstzeitGesamt}
+                    {this.props.internationalReducer.activeLanguage.strings.RüstzeitGesamt}
                   </TableRowColumn>
                   <TableRowColumn>
                     {this.state.Arbeitsplatz1.RüstzeitGesamt}
@@ -3202,7 +3582,7 @@ class Kapazitaetsplanung extends React.Component {
                 //Warteschlange
                 <TableRow>
                   <TableRowColumn colSpan="4" style={{textAlign: 'center'}}>
-                      {this.props.internationalReducer.activeLanguage.strings.Warteschlange}
+                    {this.props.internationalReducer.activeLanguage.strings.Warteschlange}
                   </TableRowColumn>
                   <TableRowColumn>
                     {this.state.Arbeitsplatz1.Warteschlange}
@@ -3253,7 +3633,7 @@ class Kapazitaetsplanung extends React.Component {
                 //Gesamtkapazitätsbedarf
                 <TableRow>
                   <TableRowColumn colSpan="4" style={{textAlign: 'center'}}>
-                      {this.props.internationalReducer.activeLanguage.strings.Gesamtkapazitätsbedarf}
+                    {this.props.internationalReducer.activeLanguage.strings.Gesamtkapazitätsbedarf}
                   </TableRowColumn>
                   <TableRowColumn>
                     {this.state.Arbeitsplatz1.Gesamtkapazitätbedarf}
@@ -3304,7 +3684,7 @@ class Kapazitaetsplanung extends React.Component {
                 //Schichten
                 <TableRow>
                   <TableRowColumn colSpan="4" style={{textAlign: 'center'}}>
-                      {this.props.internationalReducer.activeLanguage.strings.Schichten}
+                    {this.props.internationalReducer.activeLanguage.strings.Schichten}
                   </TableRowColumn>
                   <TableRowColumn>
                     <TextField
@@ -3439,7 +3819,7 @@ class Kapazitaetsplanung extends React.Component {
                 //Überstunden
                 <TableRow>
                   <TableRowColumn colSpan="4" style={{textAlign: 'center'}}>
-                      {this.props.internationalReducer.activeLanguage.strings.Überstunden}
+                    {this.props.internationalReducer.activeLanguage.strings.Überstunden}
                   </TableRowColumn>
                   <TableRowColumn>
                     <TextField
@@ -3645,8 +4025,8 @@ class Kapazitaetsplanung extends React.Component {
 
               </TableHeader>
               <TableBody displayRowCheckbox={this.state.displayRowCheckbox}
-                                   stripedRows={this.state.stripedRows}
-                                   showRowHover={this.state.showRowHover}
+                         stripedRows={this.state.stripedRows}
+                         showRowHover={this.state.showRowHover}
                 >
 
                 //Kapazitätsplanung (neu)
@@ -4233,14 +4613,14 @@ class Kapazitaetsplanung extends React.Component {
         }
 
         <Dialog
-        ref="standardDialog"
-        title={this.state.dialogTitle}
-        actions={standardActions}
-        actionFocus="ok"
-        open={this.state.openDialogStandardActions}
-        onRequestClose={this._handleRequestClose}>
-        {this.state.dialogText}
-      </Dialog>
+          ref="standardDialog"
+          title={this.state.dialogTitle}
+          actions={standardActions}
+          actionFocus="ok"
+          open={this.state.openDialogStandardActions}
+          onRequestClose={this._handleRequestClose}>
+          {this.state.dialogText}
+        </Dialog>
         <Snackbar
           ref="snackbar"
           message={this.state.snackBarmessage}

@@ -22,7 +22,8 @@ class Home extends React.Component {
     return (
         <div>
           <div className={styles.wrappper}>
-            <h1 className={styles.headder}>{this.props.internationalReducer.activeLanguage.strings.Willkommen}</h1>
+            <h1 ></h1>
+
 
             <div className={styles.startButtonWrapper}>
                 <Link className={styles.startButton} to="/auftragsplanung/gesamt">

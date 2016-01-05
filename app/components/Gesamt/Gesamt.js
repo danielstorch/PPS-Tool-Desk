@@ -1,5 +1,5 @@
 import React from 'react';
-import './Gesamt.module.css';
+import styles from './Gesamt.module.css';
 import mui from 'material-ui';
 import { connect } from 'react-redux';
 import { setAuftragsplanungGesamtInputXML, resetAuftragsplanungGesamtInputXML } from '../../actions/PPSToolActions';
@@ -142,14 +142,15 @@ class Gesamt extends React.Component {
     this.state.P3.Lagerbestand = this._getLagerbestand('3');
 
     //Produktion für Auftrag
-    this.state.P1.ProduktionAuftraege = this.state.P1.Prognose - this.state.P1.Lagerbestand;
-    this.state.P2.ProduktionAuftraege = this.state.P2.Prognose - this.state.P2.Lagerbestand;
-    this.state.P3.ProduktionAuftraege = this.state.P3.Prognose - this.state.P3.Lagerbestand;
+    this.state.P1.ProduktionAuftraege = Math.max(0, (this.state.P1.Prognose - this.state.P1.Lagerbestand));
+    this.state.P2.ProduktionAuftraege = Math.max(0,(this.state.P2.Prognose - this.state.P2.Lagerbestand));
+    this.state.P3.ProduktionAuftraege = Math.max(0,(this.state.P3.Prognose - this.state.P3.Lagerbestand));
+
 
     //Produktion Gesamt
-    this.state.P1.ProduktionGesamt = this.state.P1.ProduktionAuftraege + this.state.P1.ProduktionLager;
-    this.state.P2.ProduktionGesamt = this.state.P2.ProduktionAuftraege + this.state.P2.ProduktionLager;
-    this.state.P3.ProduktionGesamt = this.state.P3.ProduktionAuftraege + this.state.P3.ProduktionLager;
+    this.state.P1.ProduktionGesamt = Math.max(0, (this.state.P1.ProduktionAuftraege + this.state.P1.ProduktionLager));
+    this.state.P2.ProduktionGesamt = Math.max(0, (this.state.P2.ProduktionAuftraege + this.state.P2.ProduktionLager));
+    this.state.P3.ProduktionGesamt = Math.max(0,(this.state.P3.ProduktionAuftraege + this.state.P3.ProduktionLager));
 
     //Summe
     this.state.Summe.Prognose = this.state.P1.Prognose + this.state.P2.Prognose + this.state.P3.Prognose
@@ -381,14 +382,14 @@ class Gesamt extends React.Component {
         <RaisedButton label={this.props.internationalReducer.activeLanguage.strings.Speichern} primary={true} onTouchTap={this._handleSaveButtonClick}/>
         <RaisedButton label={this.props.internationalReducer.activeLanguage.strings.Reset} secondary={true} disabled={this.state.resetButtonDisabled} onTouchTap={this._handleResetButtonClick}/>
 
-        <div className="navigationButtons">
-          <div className="beforeButtonWrapper" >
-            <Link className="beforeButton" to="/">
+        <div className={styles.navigationButtons}>
+          <div className={styles.beforeButtonWrapper} >
+            <Link className={styles.beforeButton} to="/">
                   {this.props.internationalReducer.activeLanguage.strings.Back}
             </Link>
           </div>
-          <div className="nextButtonWrapper">
-          <Link className="nextButton" to="/auftragsplanung/herren">
+          <div className={styles.nextButtonWrapper}>
+          <Link className={styles.nextButton} to="/auftragsplanung/herren">
                   {this.props.internationalReducer.activeLanguage.strings.Next}
           </Link>
           </div>
@@ -405,7 +406,7 @@ class Gesamt extends React.Component {
                                  displaySelectAll={this.state.displayRowCheckbox}
                                  enableSelectAll={this.state.enableSelectAll}>
                       <TableRow selectable={this.state.selectable}>
-                        <TableHeaderColumn colSpan="6" tooltip='Gesamt' style={{textAlign: 'center'}}>
+                        <TableHeaderColumn colSpan="6"  style={{textAlign: 'center'}}>
                           {this.props.internationalReducer.activeLanguage.strings.TitelGesamt}
                         </TableHeaderColumn>
                       </TableRow>

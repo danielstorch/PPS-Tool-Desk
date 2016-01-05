@@ -1,5 +1,5 @@
 import React from 'react';
-import './Herren.module.css';
+import styles from './Herren.module.css';
 import mui from 'material-ui';
 import { connect } from 'react-redux';
 import { setAuftragsplanungHerrenInputXML, resetAuftragsplanungHerrenInputXML } from '../../actions/PPSToolActions';
@@ -343,27 +343,26 @@ class Herren extends React.Component {
     this.state.AU.P1 = Math.max(0,(this.state.VR.P1 + this.state.GL.P1 - this.state.AL.P1 - this.state.WS.P1 - this.state.BA.P1));
     this.state.VR.E26 = this.state.AU.P1
     this.state.AU.E26 =  Math.max(0,(this.state.VR.E26 + this.state.BW.E26 + this.state.GL.E26 - this.state.AL.E26 - this.state.WS.E26 - this.state.BA.E26))
-    this.state.VR.E51 = this.state.AU.E26
+    this.state.VR.E51 = this.state.AU.P1
     this.state.AU.E51 = Math.max(0,(this.state.VR.E51 + this.state.BW.E51 + this.state.GL.E51 - this.state.AL.E51 - this.state.WS.E51 - this.state.BA.E51))
     this.state.VR.E16 = this.state.AU.E51
     this.state.AU.E16 = Math.max(0,(this.state.VR.E16 + this.state.BW.E16 + this.state.GL.E16 - this.state.AL.E16 - this.state.WS.E16 - this.state.BA.E16))
-    this.state.VR.E17 = this.state.AU.E16
+    this.state.VR.E17 = this.state.AU.E51
     this.state.AU.E17 = Math.max(0,(this.state.VR.E17 + this.state.BW.E17 + this.state.GL.E17 - this.state.AL.E17 - this.state.WS.E17 - this.state.BA.E17))
-    this.state.VR.E50 = this.state.AU.E17
+    this.state.VR.E50 = this.state.AU.E51
     this.state.AU.E50 = Math.max(0,(this.state.VR.E50 + this.state.BW.E50 + this.state.GL.E50 - this.state.AL.E50 - this.state.WS.E50 - this.state.BA.E50))
     this.state.VR.E4 = this.state.AU.E50
     this.state.AU.E4 = Math.max(0,(this.state.VR.E4 + this.state.BW.E4 + this.state.GL.E4 - this.state.AL.E4 - this.state.WS.E4 - this.state.BA.E4))
-    this.state.VR.E10 = this.state.AU.E4
+    this.state.VR.E10 = this.state.AU.E50
     this.state.AU.E10 = Math.max(0,(this.state.VR.E10 + this.state.BW.E10 + this.state.GL.E10 - this.state.AL.E10 - this.state.WS.E10 - this.state.BA.E10))
-    this.state.VR.E49 = this.state.AU.E10
+    this.state.VR.E49 = this.state.AU.E50
     this.state.AU.E49 = Math.max(0,(this.state.VR.E49 + this.state.BW.E49 + this.state.GL.E49 - this.state.AL.E49 - this.state.WS.E49 - this.state.BA.E49))
     this.state.VR.E7 = this.state.AU.E49
     this.state.AU.E7 = Math.max(0,(this.state.VR.E7 + this.state.BW.E7 + this.state.GL.E7 - this.state.AL.E7 - this.state.WS.E7 - this.state.BA.E7))
-    this.state.VR.E13 = this.state.AU.E7
+    this.state.VR.E13 = this.state.AU.E49
     this.state.AU.E13 = Math.max(0,(this.state.VR.E13 + this.state.BW.E13 + this.state.GL.E13 - this.state.AL.E13 - this.state.WS.E13 - this.state.BA.E13))
-    this.state.VR.E18 = this.state.AU.E13
+    this.state.VR.E18 = this.state.AU.E49
     this.state.AU.E18 = Math.max(0,(this.state.VR.E18 + this.state.BW.E18 + this.state.GL.E18 - this.state.AL.E18 - this.state.WS.E18 - this.state.BA.E18))
-
 
   }
 
@@ -605,14 +604,14 @@ _handleSaveButtonClick(e){
         <RaisedButton label={this.props.internationalReducer.activeLanguage.strings.Reset} secondary={true} disabled={this.state.resetButtonDisabled} onTouchTap={this._handleResetButtonClick}/>
 
 
-         <div className="navigationButtons">
-          <div className="beforeButtonWrapper" >
-            <Link className="beforeButton" to="/auftragsplanung/gesamt">
+         <div className={styles.navigationButtons}>
+          <div className={styles.beforeButtonWrapper}>
+            <Link className={styles.beforeButton} to="/auftragsplanung/gesamt">
                   {this.props.internationalReducer.activeLanguage.strings.Back}
             </Link>
           </div>
-          <div className="nextButtonWrapper">
-          <Link className="nextButton" to="/auftragsplanung/damen">
+          <div className={styles.nextButtonWrapper}>
+          <Link className={styles.nextButton} to="/auftragsplanung/damen">
                   {this.props.internationalReducer.activeLanguage.strings.Next}
           </Link>
           </div>

@@ -20,8 +20,8 @@ class HomePage extends Component {
   render() {
     return (
       <div>
-        <Home/>
         <UploadXML/>
+        <Home/>
       </div>
     );
   }

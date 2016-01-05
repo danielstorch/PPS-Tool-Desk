@@ -9,7 +9,11 @@ module.exports = {
       test: /\.jsx?$/,
       loaders: ['babel-loader'],
       exclude: /node_modules/
-    }]
+    },{
+        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+        loader: 'url-loader?limit=10000',
+      }
+    ]
   },
   output: {
     path: path.join(__dirname, 'dist'),

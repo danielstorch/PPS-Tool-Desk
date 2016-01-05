@@ -1,5 +1,5 @@
 import React from 'react';
-import './Damen.module.css';
+import styles from './Damen.module.css';
 import mui from 'material-ui';
 import { connect } from 'react-redux';
 import { setAuftragsplanungDamenInputXML, resetAuftragsplanungDamenInputXML } from '../../actions/PPSToolActions';
@@ -361,25 +361,25 @@ class Damen extends React.Component {
 
     this.state.VR.E26 = this.state.AU.P2
     this.state.AU.E26 = Math.max(0, (this.state.VR.E26 + this.state.BW.E26 + this.state.GL.E26 - this.state.AL.E26 - this.state.WS.E26 - this.state.BA.E26))
-    this.state.VR.E56 = this.state.AU.E26
+    this.state.VR.E56 = this.state.AU.P2
     this.state.AU.E56 = Math.max(0, (this.state.VR.E56 + this.state.BW.E56 + this.state.GL.E56 - this.state.AL.E56 - this.state.WS.E56 - this.state.BA.E56))
     this.state.VR.E16 = this.state.AU.E56
     this.state.AU.E16 = Math.max(0, (this.state.VR.E16 + this.state.BW.E16 + this.state.GL.E16 - this.state.AL.E16 - this.state.WS.E16 - this.state.BA.E16))
-    this.state.VR.E17 = this.state.AU.E16
+    this.state.VR.E17 = this.state.AU.E56
     this.state.AU.E17 = Math.max(0, (this.state.VR.E17 + this.state.BW.E17 + this.state.GL.E17 - this.state.AL.E17 - this.state.WS.E17 - this.state.BA.E17))
-    this.state.VR.E55 = this.state.AU.E17
+    this.state.VR.E55 = this.state.AU.E56
     this.state.AU.E55 = Math.max(0, (this.state.VR.E55 + this.state.BW.E55 + this.state.GL.E55 - this.state.AL.E55 - this.state.WS.E55 - this.state.BA.E55))
     this.state.VR.E5 = this.state.AU.E55
     this.state.AU.E5 = Math.max(0, (this.state.VR.E5 + this.state.BW.E5 + this.state.GL.E5 - this.state.AL.E5 - this.state.WS.E5 - this.state.BA.E5))
-    this.state.VR.E11 = this.state.AU.E5
+    this.state.VR.E11 = this.state.AU.E55
     this.state.AU.E11 = Math.max(0, (this.state.VR.E11 + this.state.BW.E11 + this.state.GL.E11 - this.state.AL.E11 - this.state.WS.E11 - this.state.BA.E11))
-    this.state.VR.E54 = this.state.AU.E11
+    this.state.VR.E54 = this.state.AU.E55
     this.state.AU.E54 = Math.max(0, (this.state.VR.E54 + this.state.BW.E54 + this.state.GL.E54 - this.state.AL.E54 - this.state.WS.E54 - this.state.BA.E54))
     this.state.VR.E8 = this.state.AU.E54
     this.state.AU.E8 = Math.max(0, (this.state.VR.E8 + this.state.BW.E8 + this.state.GL.E8 - this.state.AL.E8 - this.state.WS.E8 - this.state.BA.E8))
-    this.state.VR.E14 = this.state.AU.E8
+    this.state.VR.E14 = this.state.AU.E54
     this.state.AU.E14 = Math.max(0, (this.state.VR.E14 + this.state.BW.E14 + this.state.GL.E14 - this.state.AL.E14 - this.state.WS.E14 - this.state.BA.E14))
-    this.state.VR.E19 = this.state.AU.E14
+    this.state.VR.E19 = this.state.AU.E54
     this.state.AU.E19 = Math.max(0, (this.state.VR.E19 + this.state.BW.E19 + this.state.GL.E19 - this.state.AL.E19 - this.state.WS.E19 - this.state.BA.E19))
 
   }
@@ -632,14 +632,14 @@ class Damen extends React.Component {
                         disabled={this.state.resetButtonDisabled} onTouchTap={this._handleResetButtonClick}/>
 
 
-           <div className="navigationButtons">
-          <div className="beforeButtonWrapper" >
-            <Link className="beforeButton" to="/auftragsplanung/herren">
+           <div className={styles.navigationButtons}>
+          <div className={styles.beforeButtonWrapper}>
+            <Link className={styles.beforeButton} to="/auftragsplanung/herren">
                   {this.props.internationalReducer.activeLanguage.strings.Back}
             </Link>
           </div>
-          <div className="nextButtonWrapper">
-          <Link className="nextButton" to="/auftragsplanung/kinder">
+          <div className={styles.nextButtonWrapper}>
+          <Link className={styles.nextButton} to="/auftragsplanung/kinder">
                   {this.props.internationalReducer.activeLanguage.strings.Next}
           </Link>
           </div>

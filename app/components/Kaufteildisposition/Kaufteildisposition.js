@@ -1,5 +1,5 @@
 import React from 'react';
-import './Kaufteildisposition.module.css';
+import styles from './Kaufteildisposition.module.css';
 import mui from 'material-ui';
 import { connect } from 'react-redux';
 import { setKaufteildispositionInputXML, resetKaufteildispositionInputXML  } from '../../actions/PPSToolActions';
@@ -1585,14 +1585,14 @@ class Kaufteildisposition extends React.Component {
                 defaultToggled={this.state.detailMode}/>
 
 
-        <div className="navigationButtons">
-          <div className="beforeButtonWrapper" >
-            <Link className="beforeButton" to="/kapazitaetsplanung">
+        <div className={styles.navigationButtons}>
+          <div className={styles.beforeButtonWrapper} >
+            <Link className={styles.beforeButton} to="/kapazitaetsplanung">
                   {this.props.internationalReducer.activeLanguage.strings.Back}
             </Link>
           </div>
-          <div className="nextButtonWrapper">
-          <Link className="nextButton" to="/download">
+          <div className={styles.nextButtonWrapper}>
+          <Link className={styles.nextButton} to="/download">
                   {this.props.internationalReducer.activeLanguage.strings.Next}
           </Link>
           </div>

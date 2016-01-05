@@ -3,6 +3,7 @@ import { findDOMNode } from 'react-dom';
 import ItemTypes from './ItemTypes';
 import { DragSource, DropTarget } from 'react-dnd';
 import mui from 'material-ui';
+import { connect } from 'react-redux';
 
 var TextField = mui.TextField
 
@@ -77,7 +78,7 @@ const cardTarget = {
   connectDragSource: connect.dragSource(),
   isDragging: monitor.isDragging()
 }))
-export default class Card extends Component {
+class Card extends Component {
   static propTypes = {
     connectDragSource: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
@@ -87,16 +88,40 @@ export default class Card extends Component {
   };
 
   render() {
-    const { index, articleId, menge, isDragging, connectDragSource, connectDropTarget } = this.props;
+    const { bikeType, id, errorText ,handleAuftragMengeChange, index, articleId, menge, isDragging, connectDragSource, connectDropTarget } = this.props;
     const opacity = isDragging ? 0 : 1;
     let lol ="dsa"
+
+    console.log("TextFieldId", "text"+id)
+    console.log("errorText",errorText)
+    console.log("ArticleId", articleId)
     return connectDragSource(connectDropTarget(
       <div style={{ ...style, opacity }}>
-        <div style={{"display": "inline-block", "marginRight":"10px"}} > Index: {index + 1} </div>
-        <div style={{"display": "inline-block", "marginRight":"10px"}} > ArticleId: {articleId} </div>
-        <div style={{"display": "inline-block"}} > Menge: {menge} </div>
+        <div style={{"display": "inline-block", "marginRight":"10px"}} > {this.props.internationalReducer.activeLanguage.strings.CardIndex}  {index + 1} </div>
+        <div style={{"display": "inline-block", "marginRight":"10px"}} > {this.props.internationalReducer.activeLanguage.strings.CardType}  {bikeType} </div>
+
+        <div style={{"display": "inline-block", "marginRight":"10px"}} > {this.props.internationalReducer.activeLanguage.strings.CardArticleId}  {articleId} </div>
+        <div style={{"display": "inline-block","marginRight":"3px"}} > {this.props.internationalReducer.activeLanguage.strings.CardMenge} </div>
+        <TextField
+                  style={{"width" : "150px"}}
+                  id={id}
+                  errorText={errorText}
+                  errorStyle={{color:'orange'}}
+                  onChange={this.props.handleAuftragMengeChange}
+                  value={menge}/>
 
       </div>
     ));
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    ActiveUploadXML: state.ActiveUploadXMLReducer,
+    InputXMLs: state.InputXMLReducer,
+    internationalReducer: state.internationalReducer
+  }
+}
+
+
+export default connect(mapStateToProps, dispatch => ({dispatch}))(Card)

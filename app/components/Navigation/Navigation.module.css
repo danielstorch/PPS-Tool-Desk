@@ -1,5 +1,8 @@
 
-/*
+
+
+
+
 .AppBar-icon-close {
     content: url(../../img/ic_close_white_32dp_1x.png);
     position: absolute;
@@ -9,6 +12,8 @@
     left: 0;
     overflow: hidden;
 }
+
+
 
 .AppBar-icon-open{
     content: url(../../img/ic_menu_white_48dp_1x.png);
@@ -20,11 +25,7 @@
     overflow: hidden;
 }
 
-.MenuItem-icon-home{
-    content: url(../../img/ic_home_black_24dp_1x.png);
-}
-
-.MenuItem-icon-kapazitaetsplanung{
+.MenuItem-icon-kapazitaetsplanung: after{
     content: url(../../img/ic_watch_later_black_24dp_1x.png);
 }
 
@@ -59,38 +60,43 @@
 .MenuItem-icon-metriken{
     content: url(../../img/ic_timeline_black_24dp_1x.png);
 }
-*/
-.currentPage {
-	color: $text-color;
+
+
+.MenuItem-icon-home{
+    content: url(../../img/ic_home_black_24dp_1x.png);
 }
 
-.NavigationÖink {
+.currentPage {
+	color: #333;
+}
+
+.NavigationLink {
   margin: 0.5em 1em;
-  color: $text-color;
+  color: #333;
   text-decoration: none;
   cursor: pointer;
 
   &:hover {
-    border-bottom: 3px solid $brand-color;
-    color: $text-color;
+    border-bottom: 3px solid #21ce99;
+    color: #333;
   }
 }
 
 .NavigationSubLink {
   margin: 0.5em 4em;
-  color: $text-color;
+  color: #333;
   text-decoration: none;
   cursor: pointer;
 
   &:hover {
-    border-bottom: 3px solid $brand-color;
-    color: $text-color;
+    border-bottom: 3px solid #21ce99;
+    color: #333;
   }
 }
 
 .NavigationTitle {
   padding: 0.5em 1em;
-  color: $text-color;
+  color: #333;
   text-decoration: none;
 }
 

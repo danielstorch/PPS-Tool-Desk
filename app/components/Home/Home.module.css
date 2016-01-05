@@ -131,6 +131,7 @@
   text-align: center;
   min-width: 88px;
   width: 300px;
+  margin: 0 auto;
 
 }
 
@@ -171,13 +172,13 @@
   http://elrumordelaluz.github.io/csshake/
   Licensed under MIT
 \* * * * * * * * * * * * * * * * * * * * */
-.shake-slow {
+.shakeslow {
   display: inline-block;
   transform-origin: center center; }
 
 .shake-freeze,
-.shake-constant.shake-constant--hover:hover,
-.shake-trigger:hover .shake-constant.shake-constant--hover {
+.shakeconstant.shakeconstanthover:hover,
+.shake-trigger:hover .shakeconstant.shakeconstanthover {
   animation-play-state: paused; }
 
 .shake-freeze:hover,
@@ -287,10 +288,10 @@
   0%, 100% {
     transform: translate(0, 0) rotate(0); } }
 
-.shake-slow:hover,
-.shake-trigger:hover .shake-slow,
+.shakeslow:hover,
+.shaketrigger:hover .shake-slow,
 .shake-slow.shake-freeze,
-.shake-slow.shake-constant {
+.shake-slow.shakeconstant {
   animation: shake-slow 5s ease-in-out infinite; }
 
   /* * * * * * * * * * * * * * * * * * * * *\  
