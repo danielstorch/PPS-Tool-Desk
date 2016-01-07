@@ -9,7 +9,12 @@ module.exports = {
       test: /\.jsx?$/,
       loaders: ['babel-loader'],
       exclude: /node_modules/
-    }]
+    } ,{
+        test: /\.png$/,
+        loader: 'url',
+      }
+
+    ]
   },
   output: {
     path: path.join(__dirname, 'dist'),

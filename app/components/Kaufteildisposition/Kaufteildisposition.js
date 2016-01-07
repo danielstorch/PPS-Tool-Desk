@@ -4680,7 +4680,6 @@ class Kaufteildisposition extends React.Component {
                     <TableRowColumn>
                       E23
                     </TableRowColumn>
-
                     <TableRowColumn>
                       <TextField
                         hintText="BestellungMenge"
@@ -4688,7 +4687,7 @@ class Kaufteildisposition extends React.Component {
                         errorText={this.state.errorTextBestellungMenge.E23}
                         errorStyle={{color:'orange'}}
                         onChange={this._handleBestellungMengeChange}
-                        value= {this.state.BestellungMenge.E22}/>
+                        value= {this.state.BestellungMenge.E23}/>
                     </TableRowColumn>
                     <TableRowColumn>
                       <Toggle
