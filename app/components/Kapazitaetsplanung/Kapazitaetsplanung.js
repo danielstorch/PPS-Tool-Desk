@@ -34,6 +34,7 @@ class Kapazitaetsplanung extends React.Component {
     this._handleSaveButtonClick = this._handleSaveButtonClick.bind(this);
     this._updateLocalStorage = this._updateLocalStorage.bind(this);
     this._getWaitingslistworkstation = this._getWaitingslistworkstation.bind(this);
+    this._getOrdersinwork = this._getOrdersinwork.bind(this);
 
 
     this.state = {
@@ -1035,20 +1036,184 @@ class Kapazitaetsplanung extends React.Component {
     this.state.Arbeitsplatz14.RüstzeitGesamt = this.state.Arbeitsplatz14.RüstzeitVorgang * this.state.Arbeitsplatz14.RüstVorgänge;
     this.state.Arbeitsplatz15.RüstzeitGesamt = this.state.Arbeitsplatz15.RüstzeitVorgang * this.state.Arbeitsplatz15.RüstVorgänge;
 
-    this._getWaitingslistworkstation('Arbeitsplatz1');
-    this._getWaitingslistworkstation('Arbeitsplatz2');
-    this._getWaitingslistworkstation('Arbeitsplatz3');
-    this._getWaitingslistworkstation('Arbeitsplatz4');
-    this._getWaitingslistworkstation('Arbeitsplatz6');
-    this._getWaitingslistworkstation('Arbeitsplatz7');
-    this._getWaitingslistworkstation('Arbeitsplatz8');
-    this._getWaitingslistworkstation('Arbeitsplatz9');
-    this._getWaitingslistworkstation('Arbeitsplatz10');
-    this._getWaitingslistworkstation('Arbeitsplatz11');
-    this._getWaitingslistworkstation('Arbeitsplatz12');
-    this._getWaitingslistworkstation('Arbeitsplatz13');
-    this._getWaitingslistworkstation('Arbeitsplatz14');
-    this._getWaitingslistworkstation('Arbeitsplatz15');
+
+    
+    this.state.Arbeitsplatz1.Warteschlange = 0;
+    this.state.Arbeitsplatz2.Warteschlange = 0;
+    this.state.Arbeitsplatz3.Warteschlange = 0;
+    this.state.Arbeitsplatz4.Warteschlange = 0;
+    this.state.Arbeitsplatz6.Warteschlange = 0;
+    this.state.Arbeitsplatz7.Warteschlange = 0;
+    this.state.Arbeitsplatz8.Warteschlange = 0;
+    this.state.Arbeitsplatz9.Warteschlange = 0;
+    this.state.Arbeitsplatz10.Warteschlange = 0;
+    this.state.Arbeitsplatz11.Warteschlange = 0;
+    this.state.Arbeitsplatz12.Warteschlange = 0;
+    this.state.Arbeitsplatz13.Warteschlange = 0;
+    this.state.Arbeitsplatz14.Warteschlange = 0;
+    this.state.Arbeitsplatz15.Warteschlange = 0;
+
+    // this._getWaitingslistworkstation('Arbeitsplatz2');
+    // this._getWaitingslistworkstation('Arbeitsplatz3');
+    // this._getWaitingslistworkstation('Arbeitsplatz4');
+    // this._getWaitingslistworkstation('Arbeitsplatz6');
+    // this._getWaitingslistworkstation('Arbeitsplatz7');
+    // this._getWaitingslistworkstation('Arbeitsplatz8');
+    // this._getWaitingslistworkstation('Arbeitsplatz9');
+    // this._getWaitingslistworkstation('Arbeitsplatz10');
+    // this._getWaitingslistworkstation('Arbeitsplatz11');
+    // this._getWaitingslistworkstation('Arbeitsplatz12');
+    // this._getWaitingslistworkstation('Arbeitsplatz13');
+    // this._getWaitingslistworkstation('Arbeitsplatz14');
+    // this._getWaitingslistworkstation('Arbeitsplatz15');
+
+    // P1 E13
+    this._getWaitingslistworkstation('Arbeitsplatz13', "13", 2,[{ap:"Arbeitsplatz12",min:3}, {ap:"Arbeitsplatz8",min:1}, {ap:"Arbeitsplatz7",min:2}, {ap:"Arbeitsplatz9",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz12', "13", 3,[{ap:"Arbeitsplatz8",min:1}, {ap:"Arbeitsplatz7",min:2}, {ap:"Arbeitsplatz9",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz8', "13", 1, [{ap:"Arbeitsplatz7",min:2}, {ap:"Arbeitsplatz9",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz7', "13", 2,[{ap:"Arbeitsplatz9",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz9', "13", 3,[]);
+
+    // P1 E18
+    this._getWaitingslistworkstation('Arbeitsplatz6', "18", 3,[{ap:"Arbeitsplatz8",min:3}, {ap:"Arbeitsplatz7",min:2}, {ap:"Arbeitsplatz9",min:2}]);
+    this._getWaitingslistworkstation('Arbeitsplatz8', "18", 3,[{ap:"Arbeitsplatz7",min:2}, {ap:"Arbeitsplatz9",min:2}]);
+    this._getWaitingslistworkstation('Arbeitsplatz7', "18", 2,[{ap:"Arbeitsplatz9",min:2}]);
+    this._getWaitingslistworkstation('Arbeitsplatz9', "18", 2,[]);
+
+    // P1 E7
+    this._getWaitingslistworkstation('Arbeitsplatz10', "7", 4,[{ap:"Arbeitsplatz11",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz11', "7", 3,[]);
+
+    // P1 E4
+    this._getWaitingslistworkstation('Arbeitsplatz10', "4", 4,[{ap:"Arbeitsplatz11",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz11', "4", 3,[]);
+
+    // P1 E10
+    this._getWaitingslistworkstation('Arbeitsplatz13', "10", 2,[{ap:"Arbeitsplatz12",min:3}, {ap:"Arbeitsplatz8",min:1}, {ap:"Arbeitsplatz7",min:2},{ap:"Arbeitsplatz9",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz12', "10", 3,[{ap:"Arbeitsplatz8",min:1}, {ap:"Arbeitsplatz7",min:2},{ap:"Arbeitsplatz9",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz8', "10", 1, [{ap:"Arbeitsplatz7",min:2},{ap:"Arbeitsplatz9",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz7', "10", 2,[{ap:"Arbeitsplatz9",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz9', "10", 3,[]); 
+
+    // P1 E50
+    this._getWaitingslistworkstation('Arbeitsplatz2', "50", 5,[]);
+
+    // P1 E49
+    this._getWaitingslistworkstation('Arbeitsplatz1', "49", 6,[]);
+
+    // P1 E51
+    this._getWaitingslistworkstation('Arbeitsplatz3', "51", 5,[]);
+
+    // P1 P1
+    this._getWaitingslistworkstation('Arbeitsplatz4', "1", 6,[]);
+
+    // MEHRFACH E16
+    this._getWaitingslistworkstation('Arbeitsplatz6', "16", 2,[{ap:"Arbeitsplatz14",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz14', "16", 3,[]);
+
+    // MEHRFACH E26
+    this._getWaitingslistworkstation('Arbeitsplatz7', "26", 2,[{ap:"Arbeitsplatz15",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz15', "26", 3,[]);
+
+    // MEHRFACH E17
+    this._getWaitingslistworkstation('Arbeitsplatz15', "17", 3,[]);
+
+   // P2 E14
+    this._getWaitingslistworkstation('Arbeitsplatz13', "14", 2,[{ap:"Arbeitsplatz12",min:3}, {ap:"Arbeitsplatz8",min:2}, {ap:"Arbeitsplatz7",min:2}, {ap:"Arbeitsplatz9",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz12', "14", 3,[{ap:"Arbeitsplatz8",min:2}, {ap:"Arbeitsplatz7",min:2}, {ap:"Arbeitsplatz9",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz8', "14", 2, [{ap:"Arbeitsplatz7",min:2}, {ap:"Arbeitsplatz9",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz7', "14", 2,[{ap:"Arbeitsplatz9",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz9', "14", 3,[]);
+
+    // P1 E19
+    this._getWaitingslistworkstation('Arbeitsplatz6', "19", 3,[{ap:"Arbeitsplatz8",min:3}, {ap:"Arbeitsplatz7",min:2}, {ap:"Arbeitsplatz9",min:2}]);
+    this._getWaitingslistworkstation('Arbeitsplatz8', "19", 3,[ {ap:"Arbeitsplatz7",min:2}, {ap:"Arbeitsplatz9",min:2}]);
+    this._getWaitingslistworkstation('Arbeitsplatz7', "19", 2,[ {ap:"Arbeitsplatz9",min:2}]);
+    this._getWaitingslistworkstation('Arbeitsplatz9', "19", 2,[]);
+
+    // P2 E8
+    this._getWaitingslistworkstation('Arbeitsplatz10', "8", 4,[{ap:"Arbeitsplatz11",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz11', "8", 3,[]);
+
+    // P2 E5
+    this._getWaitingslistworkstation('Arbeitsplatz10', "5", 4,[{ap:"Arbeitsplatz11",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz11', "5", 3,[]);
+
+    // P2 E11
+    this._getWaitingslistworkstation('Arbeitsplatz13', "11", 2,[{ap:"Arbeitsplatz12",min:3}, {ap:"Arbeitsplatz8",min:2}, {ap:"Arbeitsplatz7",min:2}, {ap:"Arbeitsplatz9",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz12', "11", 3,[{ap:"Arbeitsplatz8",min:2}, {ap:"Arbeitsplatz7",min:2}, {ap:"Arbeitsplatz9",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz8', "11", 2, [{ap:"Arbeitsplatz7",min:2}, {ap:"Arbeitsplatz9",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz7', "11", 2,[{ap:"Arbeitsplatz9",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz9', "11", 3,[]); 
+
+    // P2 E54
+    this._getWaitingslistworkstation('Arbeitsplatz1', "54", 6,[]);
+
+    // P2 E55
+    this._getWaitingslistworkstation('Arbeitsplatz2', "55", 5,[]);
+
+    // P2 E56
+    this._getWaitingslistworkstation('Arbeitsplatz3', "56", 6,[]);
+
+    // P2 P2
+    this._getWaitingslistworkstation('Arbeitsplatz4', "2", 7,[]);
+
+    // P3 E15
+    this._getWaitingslistworkstation('Arbeitsplatz13', "15", 2,[{ap:"Arbeitsplatz12",min:3}, {ap:"Arbeitsplatz8",min:2}, {ap:"Arbeitsplatz7",min:2}, {ap:"Arbeitsplatz9",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz12', "15", 3,[{ap:"Arbeitsplatz8",min:2}, {ap:"Arbeitsplatz7",min:2}, {ap:"Arbeitsplatz9",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz8', "15", 2, [ {ap:"Arbeitsplatz7",min:2}, {ap:"Arbeitsplatz9",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz7', "15", 2,[{ap:"Arbeitsplatz9",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz9', "15", 3,[]);
+
+    // P3 E20
+    this._getWaitingslistworkstation('Arbeitsplatz6', "20", 3,[{ap:"Arbeitsplatz8",min:3}, {ap:"Arbeitsplatz7",min:2}, {ap:"Arbeitsplatz9",min:2}]);
+    this._getWaitingslistworkstation('Arbeitsplatz8', "20", 3,[{ap:"Arbeitsplatz7",min:2}, {ap:"Arbeitsplatz9",min:2}]);
+    this._getWaitingslistworkstation('Arbeitsplatz7', "20", 2,[{ap:"Arbeitsplatz9",min:2}]);
+    this._getWaitingslistworkstation('Arbeitsplatz9', "20", 2,[]);
+
+    // P3 E9
+    this._getWaitingslistworkstation('Arbeitsplatz10', "9", 4,[{ap:"Arbeitsplatz11",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz11', "9", 3,[]);
+
+    // P3 E6
+    this._getWaitingslistworkstation('Arbeitsplatz10', "6", 4,[{ap:"Arbeitsplatz11",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz11', "6", 3,[]);
+
+    // P3 E12
+    this._getWaitingslistworkstation('Arbeitsplatz13', "12", 2,[{ap:"Arbeitsplatz12",min:3}, {ap:"Arbeitsplatz8",min:2}, {ap:"Arbeitsplatz7",min:2}, {ap:"Arbeitsplatz9",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz12', "12", 3,[{ap:"Arbeitsplatz8",min:2}, {ap:"Arbeitsplatz7",min:2}, {ap:"Arbeitsplatz9",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz8', "12", 2, [{ap:"Arbeitsplatz7",min:2}, {ap:"Arbeitsplatz9",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz7', "12", 2,[{ap:"Arbeitsplatz9",min:3}]);
+    this._getWaitingslistworkstation('Arbeitsplatz9', "12", 3,[]); 
+
+    // P3 E29
+    this._getWaitingslistworkstation('Arbeitsplatz1', "29", 6,[]);
+
+    // P3 E30
+    this._getWaitingslistworkstation('Arbeitsplatz2', "30", 5,[]);
+
+    // P3 E31
+    this._getWaitingslistworkstation('Arbeitsplatz3', "31", 6,[]);
+
+    // P3 P3
+    this._getWaitingslistworkstation('Arbeitsplatz4', "3", 7,[]);
+
+
+
+    this.state.Arbeitsplatz1.Warteschlange = this.state.Arbeitsplatz1.Warteschlange + this._getOrdersinwork('1');
+    this.state.Arbeitsplatz2.Warteschlange = this.state.Arbeitsplatz2.Warteschlange + this._getOrdersinwork('2');
+    this.state.Arbeitsplatz3.Warteschlange = this.state.Arbeitsplatz3.Warteschlange + this._getOrdersinwork('3');
+    this.state.Arbeitsplatz4.Warteschlange = this.state.Arbeitsplatz4.Warteschlange + this._getOrdersinwork('4');
+    this.state.Arbeitsplatz6.Warteschlange = this.state.Arbeitsplatz6.Warteschlange + this._getOrdersinwork('6');
+    this.state.Arbeitsplatz7.Warteschlange = this.state.Arbeitsplatz7.Warteschlange + this._getOrdersinwork('7');
+    this.state.Arbeitsplatz8.Warteschlange = this.state.Arbeitsplatz8.Warteschlange + this._getOrdersinwork('8');
+    this.state.Arbeitsplatz9.Warteschlange = this.state.Arbeitsplatz9.Warteschlange + this._getOrdersinwork('9');
+    this.state.Arbeitsplatz10.Warteschlange = this.state.Arbeitsplatz10.Warteschlange + this._getOrdersinwork('10');
+    this.state.Arbeitsplatz11.Warteschlange = this.state.Arbeitsplatz11.Warteschlange + this._getOrdersinwork('11');
+    this.state.Arbeitsplatz12.Warteschlange = this.state.Arbeitsplatz12.Warteschlange + this._getOrdersinwork('12');
+    this.state.Arbeitsplatz13.Warteschlange = this.state.Arbeitsplatz13.Warteschlange + this._getOrdersinwork('13');
+    this.state.Arbeitsplatz14.Warteschlange = this.state.Arbeitsplatz14.Warteschlange + this._getOrdersinwork('14');
+    this.state.Arbeitsplatz15.Warteschlange = this.state.Arbeitsplatz15.Warteschlange + this._getOrdersinwork('15');
 
     this.state.Arbeitsplatz1.Gesamtkapazitätbedarf = this.state.Arbeitsplatz1.Kapazitätsbedarf + this.state.Arbeitsplatz1.RüstzeitGesamt + this.state.Arbeitsplatz1.Warteschlange;
     this.state.Arbeitsplatz2.Gesamtkapazitätbedarf = this.state.Arbeitsplatz2.Kapazitätsbedarf + this.state.Arbeitsplatz2.RüstzeitGesamt + this.state.Arbeitsplatz2.Warteschlange;
@@ -1473,23 +1638,68 @@ class Kapazitaetsplanung extends React.Component {
     });
   }
 
-  _getWaitingslistworkstation(workstationId) {
-    var workplaceNumber = workstationId.substring(12);
+  _getOrdersinwork(apID){
     var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
     var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
 
     var currentAmount = 0;
+    if(currentInputXML){
+      if(currentInputXML.inputDataObject.results.ordersinwork[0].workplace){
+      currentInputXML.inputDataObject.results.ordersinwork[0].workplace.forEach(function (elementWorkplace){
+
+        if(apID === elementWorkplace.$.id){
+          currentAmount = parseInt(elementWorkplace.$.timeneed) + currentAmount
+        }
+      }.bind(this))
+    }
+
+    }
+    // console.log("Arbeitsplatz", apID )
+    // console.log("ORDERINDWORK", currentAmount )
+    return currentAmount
+  }
+
+  _getWaitingslistworkstation(workstationId, articleID, minutenProTeil, arbeitsplatzListeID) {
+    var workplaceNumber = workstationId.substring(12);
+    var activePeriodID = this.props.ActiveUploadXML.activeUploadXMLData.id.substring(7);
+    var currentInputXML = this.props.InputXMLs.find(xml => xml.id.substring(6) === activePeriodID);
+
+
     if (currentInputXML) {
       currentInputXML.inputDataObject.results.waitinglistworkstations[0].workplace.forEach(function (elementStation) {
         if (workplaceNumber == elementStation.$.id) {
-          this.state[workstationId].Warteschlange = parseInt(elementStation.$.timeneed);
+          if(elementStation.waitinglist){
+            elementStation.waitinglist.forEach(function (elementWaitinglist){
+              if(elementWaitinglist.$.item === articleID){ 
+
+                // console.log("parseInt(elementWaitinglist.$.amount) * minutenProTeil " ,elementWaitinglist.$.amount + " * " + minutenProTeil)
+
+                var gesamtMinuten = parseInt(elementWaitinglist.$.amount)
+
+                // conso/le.log("GesamtMinuten ",gesamtMinuten)
+
+                // console.log("MAIN Vorher " + workstationId + " für teil " + articleID, this.state[workstationId].Warteschlange)
+                this.state[workstationId].Warteschlange = this.state[workstationId].Warteschlange + gesamtMinuten * minutenProTeil
+                // console.log("MAIN Danach " + workstationId + " für teil " + articleID, this.state[workstationId].Warteschlange)
+                arbeitsplatzListeID.forEach(function(arbeitsplatz){
+                  // console.log("arbeitsplatz.apdsadasdasdas", arbeitsplatz.ap)
+
+                  // console.log("davor: " + arbeitsplatz + " für teil " + articleID, this.state[arbeitsplatz.ap].Warteschlange)
+
+                  this.state[arbeitsplatz.ap].Warteschlange = this.state[arbeitsplatz.ap].Warteschlange + gesamtMinuten * arbeitsplatz.min
+
+                  // console.log("danach: " + arbeitsplatz + " für teil " + articleID, this.state[arbeitsplatz.ap].Warteschlange)
+
+                }.bind(this))
+              }
+            }.bind(this))
+          }
         }
       }.bind(this))
 
     }
 
-    //console.log("Waitingslistworkstation: "+ articleId, currentAmount)
-    return currentAmount
+    
   }
 
   _handleResetButtonClick(e) {
